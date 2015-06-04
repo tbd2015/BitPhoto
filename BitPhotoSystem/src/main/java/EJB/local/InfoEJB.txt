@@ -1,0 +1,15 @@
+*Package que Contiene la logica de la aplicacion.
+*** EJB: En este documento se implementa el session beans tipo stateless*** que permite controlar la logica de negocio
+se utilizan los packages
+import java.util.List;
+import javax.ejb.EJB;
+import javax.ejb.Stateless; (EJB sin estado)
+import FACADE.CustomerEJBFacade; (Trabaja sobre los metodos definidos en ***EJBFacade)
+import MODEL.Customer; (Trabaja sobre la capa de persistencia utilizando el modelo ***)
+
+Posee un constructor ***EJB() : sirve para iniciar session beans.
+
+Se utiliza como implementacion de ***EJBLocal que es una interfaz de comunicacion entre EJBs.
+
+EJB** independientes contiene los EJB que no se conectan con la capa de modelo
+sino que lo hacen con otros EJBs.
