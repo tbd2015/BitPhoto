@@ -82,8 +82,9 @@ public class Foto implements Serializable {
     @Column(name = "FORMATO")
     private String formato;
     @Lob
-    @Column(name = "PUNTO_LUGAR")
-    private Object puntoLugar;
+    //@Column(name = "PUNTO_LUGAR")
+    //private Object puntoLugar;
+    
     @Column(name = "CANT_COM")
     private Integer cantCom;
     @JoinTable(name = "ETIQUETA", joinColumns = {
@@ -190,13 +191,13 @@ public class Foto implements Serializable {
         this.formato = formato;
     }
 
-    public Object getPuntoLugar() {
+    /**public Object getPuntoLugar() {
         return puntoLugar;
     }
 
     public void setPuntoLugar(Object puntoLugar) {
         this.puntoLugar = puntoLugar;
-    }
+    }**/
 
     public Integer getCantCom() {
         return cantCom;

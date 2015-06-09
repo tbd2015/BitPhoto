@@ -38,8 +38,8 @@ public class Lugar implements Serializable {
     @Column(name = "ID_LUGAR")
     private Integer idLugar;
     @Lob
-    @Column(name = "POLYGON")
-    private Object polygon;
+    /**@Column(name = "POLYGON")
+    private Object polygon;**/
     @Size(max = 45)
     @Column(name = "NOMBRE")
     private String nombre;
@@ -59,13 +59,13 @@ public class Lugar implements Serializable {
         this.idLugar = idLugar;
     }
 
-    public Object getPolygon() {
+    /**public Object getPolygon() {
         return polygon;
     }
 
     public void setPolygon(Object polygon) {
         this.polygon = polygon;
-    }
+    }**/
 
     public String getNombre() {
         return nombre;

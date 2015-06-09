@@ -3,6 +3,7 @@
   <persistence-unit name="bitphoto" transaction-type="JTA">
     <jta-data-source>jdbc/bitphoto</jta-data-source>
     <class>Model.Album</class>
+    <class>Model.Foto</class>
   </persistence-unit>
   <persistence-unit name="BitPhotoSystemPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
