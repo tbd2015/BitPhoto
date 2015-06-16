@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import MODEL.Usuario;
 
+@Stateless
 public class UsuarioEJBFacade extends AbstractFacade<Usuario> {
         
         @PersistenceContext(unitName = "bitphoto")
@@ -20,5 +21,7 @@ public class UsuarioEJBFacade extends AbstractFacade<Usuario> {
 	@Override
 	protected EntityManager getEntityManager() {
 		return em;
-	} 
+	}
+        
+        
 }

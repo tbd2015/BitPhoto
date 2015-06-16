@@ -16,7 +16,7 @@ public class NewCrossOriginResourceSharingFilter implements ContainerResponseFil
     public void filter(ContainerRequestContext requestContext, ContainerResponseContext response) {
         response.getHeaders().putSingle("Access-Control-Allow-Origin", "*");
         response.getHeaders().putSingle("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-        response.getHeaders().putSingle("Access-Control-Allow-Headers", "content-type");
+        response.getHeaders().putSingle("Access-Control-Allow-Headers", "content-type, authorization");
     }
     
 }
