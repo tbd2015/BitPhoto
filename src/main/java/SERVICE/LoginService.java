@@ -15,21 +15,15 @@ import EJB.local.UsuarioEJBLocal;
 import MODEL.Usuario;
 
 @Path("/login")
-public class LoginService  {
+public class LoginService{
     @EJB
     UsuarioEJBLocal UsuarioEJB;
-	
-        //@GET
-        //@Produces({"application/json"})
-        //public  String hola(@PathParam("email") String email) {
-        //        return "hola mundo";
-        //}
-	
+    
 	@GET
         @Produces({"application/json"})
         @Consumes(MediaType.APPLICATION_JSON)
-        public String find(@PathParam((Usuario user) {
-             Usuario u = UsuarioEJB.get(user.correo ,user.contrasena);
+        public String find(Usuario user){
+             Usuario u = UsuarioEJB.get(user.getCorreo() ,user.getContrasena());
              if(u != null){
                return "{ success: true }"; 
                
@@ -39,4 +33,5 @@ public class LoginService  {
              
             
         }
-}
+                }
+           
