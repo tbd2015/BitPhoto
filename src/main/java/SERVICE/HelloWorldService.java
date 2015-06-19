@@ -12,7 +12,7 @@ public class HelloWorldService {
     @GET
     @Produces("text/plain")
     public String getClichedMessage() {
-        return "Hello World";
+        return "Hello World BitPhoto";
     }
 	
 }

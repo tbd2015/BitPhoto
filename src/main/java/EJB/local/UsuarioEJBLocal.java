@@ -16,11 +16,13 @@ public interface UsuarioEJBLocal {
         
         Usuario get(String email, String pass);
 	
-        void add(Usuario album);
+        void add(Usuario usuario);
 	
-	void update(Usuario album);
+	void update(Usuario usuario);
         
-        void remove(Usuario album);
+        void remove(Usuario usuario);
+        
+        int find(String email, String alias);
 
         List<Usuario> findRange(int[] i);
 

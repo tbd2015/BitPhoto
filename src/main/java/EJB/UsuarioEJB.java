@@ -41,17 +41,17 @@ public class UsuarioEJB implements UsuarioEJBLocal{
 }
 
     @Override
-    public void add(Usuario album) {
+    public void add(Usuario user) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(Usuario album) {
+    public void update(Usuario user) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void remove(Usuario album) {
+    public void remove(Usuario user) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -63,6 +63,20 @@ public class UsuarioEJB implements UsuarioEJBLocal{
     @Override
     public Object count() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int find(String email, String alias) {
+        List<Usuario> users = this.UsuarioFacade.findAll();
+        for (Usuario u : users) {
+            if(u.getCorreo().compareTo(email)== 0){
+                return 1;
+            }
+            if(u.getAlias().compareTo(alias) == 0){
+                return 2;
+            } 
+        }       
+        return -1;
     }
     
     

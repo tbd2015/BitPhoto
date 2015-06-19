@@ -22,6 +22,5 @@ public class UsuarioEJBFacade extends AbstractFacade<Usuario> {
 	protected EntityManager getEntityManager() {
 		return em;
 	}
-        
-        
+         
 }
