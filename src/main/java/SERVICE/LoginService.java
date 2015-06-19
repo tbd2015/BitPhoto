@@ -8,6 +8,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import EJB.local.UsuarioEJBLocal;
@@ -25,11 +26,17 @@ public class LoginService  {
         //}
 	
 	@GET
-        @Path("{email}/{pass}")
         @Produces({"application/json"})
-        public Usuario find(@PathParam("email") String email,@PathParam("pass")  String pass) {
-             Usuario u = UsuarioEJB.get(email,pass);
-             return u;
+        @Consumes(MediaType.APPLICATION_JSON)
+        public String find(@PathParam((Usuario user) {
+             Usuario u = UsuarioEJB.get(user.correo ,user.contrasena);
+             if(u != null){
+               return "{ success: true }"; 
+               
+             }else{
+               return "{ success: false, message: 'Correo o contraseña son incorrectos' }";
+             }
+             
             
         }
 }
