@@ -19,10 +19,10 @@ public class LoginService{
         public String find(@PathParam("correo") String correo, @PathParam("contrasena") String contrasena){
             Usuario u = UsuarioEJB.get(correo, contrasena);
             if (u != null) {
-              return "{ \"success\": \"true\" }"; 
+              return "{ \"success\": true }"; 
 
             } else {
-              return "{ \"success\": \"false\", \"message\": \"Correo o contrasena son incorrectos\" }";
+              return "{ \"success\": false, \"message\": \"Correo o contraseña son incorrectos\" }";
             }
         }
     }

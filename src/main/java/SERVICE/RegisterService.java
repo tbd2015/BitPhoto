@@ -25,26 +25,26 @@ public class RegisterService{
         @Consumes(MediaType.APPLICATION_JSON)
         public String create(JsonObject user){
             try {
-              int op = UsuarioEJB.find(user.getString("email"), user.getString("apodo"));
-            if(op == 1){// Email ya existe
-                return "{success: false, message: 'Otro usuario esta utilizando el email'}";
-            }else if(op == 2){ // Alias ya existe
-                return "{success: false, message: 'Otro usuario esta utilizando el alias'}";
-            }else{
-                Usuario u = new Usuario();
-                u.setAlias(user.getString("apodo"));
-                u.setApellido(user.getString("apellido"));
-                u.setContrasena(user.getString("password"));
-                u.setNombrereal(user.getString("nombre"));
-                u.setCorreo(user.getString("email"));
-                UsuarioEJB.add(u);
-                
-                return "{success: true , message: 'Registro de usuario exitoso'}";
-            }
+                int op = UsuarioEJB.find(user.getString("email"), user.getString("apodo"));
+                if(op == 1){// Email ya existe
+                    return "{ \"success\": false, \"message\": \"Otro usuario esta utilizando el Correo Electronico\" }";
+                }else if(op == 2){ // Alias ya existe
+                    return "{ \"success\": false, \"message\": \"Otro usuario esta utilizando el alias\" }";
+                }else{
+                    Usuario u = new Usuario();
+                    u.setNombrereal(user.getString("nombre"));
+                    u.setApellido(user.getString("apellido"));
+                    u.setAlias(user.getString("apodo"));
+                    u.setCorreo(user.getString("email"));
+                    u.setContrasena(user.getString("password"));
+                                       
+                    UsuarioEJB.add(u);
+
+                    return "{ \"success\": true, \"message\": \"Registro de usuario exitoso\" }";
+                }
             }catch(Exception e){
-            return "{success: false, message: 'problema en el sistema', trackerror: '"+e.getMessage()+"'}";
+                return "{ \"success\": false, \"message\": \"Hay problemas en el sistema\", \"trackerror\": \""+e.getMessage()+"\" }";
             }
-                 
         }
 }
            
