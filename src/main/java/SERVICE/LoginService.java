@@ -9,6 +9,7 @@ import MODEL.Usuario;
 import javax.ws.rs.PathParam;
 
 @Path("/login")
+@Produces({"application/json"})
 public class LoginService{
     @EJB
     UsuarioEJBLocal UsuarioEJB;

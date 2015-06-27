@@ -63,7 +63,7 @@ public class Usuario implements Serializable {
     @Size(max = 20)
     @Column(name = "NOMBREREAL")
     private String nombrereal;
-    @Size(max = 20)
+    @Size(max = 33)
     @Column(name = "CONTRASENA")
     private String contrasena;
     @Column(name = "FECHA_CREACION")
@@ -104,7 +104,26 @@ public class Usuario implements Serializable {
     @OneToMany(mappedBy = "idUsuario")
     private Collection<UsuarioUsuario> usuarioUsuarioCollection;
 
-    public Usuario() {
+    public Usuario(){
+        this.idUsuario = null;
+        this.alias = null;
+        this.nombrereal = null;
+        this.apellido = null;
+        this.cantAlbum = null;
+        this.cantFotos = null;
+        this.cantSeguidores = null;
+        this.cantSeguidos = null;
+        this.contrasena = null;
+        this.correo = null;
+        this.descripcion = null;
+        this.fechaCreacion = null;
+        this.urlAvatar = null;
+        this.urlPerfil = null;
+
+   
+   
+
+   
     }
 
     public Usuario(Integer idUsuario) {
