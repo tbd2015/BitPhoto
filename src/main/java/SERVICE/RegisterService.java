@@ -28,7 +28,7 @@ public class RegisterService{
         @Consumes(MediaType.APPLICATION_JSON)
         public String create(Usuario user){
             try {
-                int op = UsuarioEJB.find(user.getCorreo(), user.getAlias());
+                int op = UsuarioEJB.find(user.getCorreo(),user.getAlias());
                 if(op == 1){// Email ya existe
                     return "{ \"success\": false, \"message\": \"Otro usuario esta utilizando el Correo Electronico\" }";
                 }else if(op == 2){ // Alias ya existe
@@ -45,10 +45,12 @@ public class RegisterService{
                     u.setFechaCreacion(new Date());
                     u.setDescripcion("Nuevo usuario BitPhoto");
                     
-                    UsuarioEJB.add(u);
+                   UsuarioEJB.add(u);
 
-                    return "{ \"success\": true, \"message\": \"Registro de usuario exitoso\" }";
-                }
+                   return "{ \"success\": true, \"message\": \"Registro de usuario exitoso\" , \"usuario\" : \""+u.getCorreo()+"\"}";
+                     
+    
+                            }
             }catch(Exception e){
                 return "{ \"success\": false, \"message\": \"Hay problemas en el sistema\", \"trackerror\": \""+e.getMessage()+"\" }";
             }

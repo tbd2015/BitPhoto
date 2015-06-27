@@ -109,10 +109,10 @@ public class Usuario implements Serializable {
         this.alias = null;
         this.nombrereal = null;
         this.apellido = null;
-        this.cantAlbum = null;
-        this.cantFotos = null;
-        this.cantSeguidores = null;
-        this.cantSeguidos = null;
+        this.cantAlbum = 0;
+        this.cantFotos = 0;
+        this.cantSeguidores = 0;
+        this.cantSeguidos = 0;
         this.contrasena = null;
         this.correo = null;
         this.descripcion = null;

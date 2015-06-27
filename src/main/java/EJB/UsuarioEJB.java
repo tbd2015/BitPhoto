@@ -42,7 +42,8 @@ public class UsuarioEJB implements UsuarioEJBLocal{
 
     @Override
     public void add(Usuario user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       UsuarioFacade.create(user);
+        //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
