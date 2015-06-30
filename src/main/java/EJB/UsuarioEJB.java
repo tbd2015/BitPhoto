@@ -80,6 +80,26 @@ public class UsuarioEJB implements UsuarioEJBLocal{
         return -1;
     }
     
-    
+    @Override
+    public Usuario findbyalias(String alias) {
+        List<Usuario> users = this.UsuarioFacade.findAll();
+        for (Usuario u : users) {
+            if(u.getAlias().compareTo(alias) == 0){
+                return u;
+            } 
+        }       
+        return null;
+    }
+
+    @Override
+    public Usuario findbycorreo(String correo) {
+        List<Usuario> users = this.UsuarioFacade.findAll();
+        for (Usuario u : users) {
+            if(u.getCorreo().compareTo(correo) == 0){
+                return u;
+            } 
+        }       
+        return null;
+    }
     
 }

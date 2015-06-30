@@ -23,8 +23,13 @@ public interface UsuarioEJBLocal {
         void remove(Usuario usuario);
         
         int find(String email, String alias);
+        
+        Usuario findbyalias(String alias);
 
         List<Usuario> findRange(int[] i);
 
         Object count();
+
+        public Usuario findbycorreo(String correo);
+        
 }

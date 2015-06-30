@@ -5,6 +5,8 @@
  */
 package MODEL;
 
+import com.mysql.jdbc.Blob;
+import com.mysql.jdbc.Clob;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -81,12 +83,12 @@ public class Foto implements Serializable {
     @Size(max = 20)
     @Column(name = "FORMATO")
     private String formato;
-    @Lob
-    //@Column(name = "PUNTO_LUGAR")
-    //private Object puntoLugar;
-    
+    //@lob
+    @Column(name = "PUNTO_LUGAR")
+    private  char[] puntoLugar = null;
     @Column(name = "CANT_COM")
     private Integer cantCom;
+    
     @JoinTable(name = "ETIQUETA", joinColumns = {
         @JoinColumn(name = "ID_FOTO", referencedColumnName = "ID_FOTO")}, inverseJoinColumns = {
         @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")})
@@ -190,14 +192,15 @@ public class Foto implements Serializable {
     public void setFormato(String formato) {
         this.formato = formato;
     }
+    
 
-    /**public Object getPuntoLugar() {
+    public char[] getPuntoLugar() {
         return puntoLugar;
     }
 
-    public void setPuntoLugar(Object puntoLugar) {
+    public void setPuntoLugar(char[] puntoLugar) {
         this.puntoLugar = puntoLugar;
-    }**/
+    }
 
     public Integer getCantCom() {
         return cantCom;
@@ -284,5 +287,11 @@ public class Foto implements Serializable {
     public String toString() {
         return "Entities.Foto[ idFoto=" + idFoto + " ]";
     }
+    
+   /* public List getFotosByName(EntityManager em, int idUsuario){
+    TypedQuery<Foto> query = em.createQuery("SELECT f FROM Foto f WHERE f.idUsuario = :idUsuario", Foto.class);
+    
+    return query.setParameter("idUsuario", idUsuario).getResultList();     
+    }*/
     
 }
