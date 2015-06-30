@@ -57,7 +57,7 @@ public class PhotoStreamService {
     private String ListToJson(List<Foto> fotos, Usuario u) {
         
         String success = "{ \"success\": true";
-        String menssage = ", \"message\": \"El usuario no posee fotos\"";
+        String menssage = ", \"message\": \"Usuario encontrado y posee fotografias\"";
         
         String usuario = ",\n  \"usuario\": { \"idusuario\": \""+u.getIdUsuario()+"\", \"alias\": \""+u.getAlias()+"\", \"nombre_real\": \""+u.getNombrereal()+"\", \"apellido\": \""+u.getApellido()+"\", \"descripcion\": \""+u.getDescripcion()+"\", \"seguidores\": \""+u.getCantSeguidores()+"\", \"seguidos\": \""+u.getCantSeguidos()+"\", \"cantidad_fotos\": \""+u.getCantFotos()+"\", \"cantidad_albumes\": \""+u.getCantAlbum()+"\"}";
         
