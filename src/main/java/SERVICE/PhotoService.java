@@ -24,23 +24,21 @@ import java.util.List;
 import com.google.gson.*;
 import org.json.simple.JSONArray;
 
-
-@Path("/photoStream")
+@Path("/photo")
 @Produces({"application/json"})
-public class PhotoStreamService {
-    @EJB
-    UsuarioEJBLocal UsuarioEJB;
+public class PhotoService {
     @EJB
     FotoEJBLocal FotoEJB;
+    @EJB
+    UsuarioEJBLocal UsuarioEJB;
     
-	@GET
+    @GET
         @Produces({"application/json"})
-        @Path("{correo}")
-        public String getphotosUser(@PathParam("correo") String correo){
+        @Path("{correo}/{cantidad}")
+        public String getphotosrecientes(@PathParam("correo") String correo, @PathParam("cantidad") String cantidad){
             Usuario u = UsuarioEJB.findbycorreo(correo);
+            List<Foto> fotos = FotoEJB.getFotosRecientes(Integer.parseInt(cantidad));
             if (u != null) {  
-              int id = u.getIdUsuario();
-              List<Foto> fotos = FotoEJB.getFotosbyUserId(id);
               if(!fotos.isEmpty()){
                   String JsonList = ListToJson(fotos,u);
                   return JsonList;
@@ -51,10 +49,9 @@ public class PhotoStreamService {
               return "{ \"success\": false, \"message\": \"Correo no encontrado\" }";
               
             }
-            
         }
-
-    private String ListToJson(List<Foto> fotos, Usuario u) {
+        
+        private String ListToJson(List<Foto> fotos, Usuario u) {
         
         String success = "{ \"success\": true";
         String menssage = ", \"message\": \"Usuario encontrado y posee fotografias\"";

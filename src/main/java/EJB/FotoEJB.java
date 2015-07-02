@@ -1,12 +1,16 @@
 package EJB;
 
 import EJB.local.FotoEJBLocal;
+import FACADE.AlbumFotoEJBFacade;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import FACADE.FotoEJBFacade;
+import MODEL.Album;
 import MODEL.Foto;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 @Stateless
@@ -14,6 +18,8 @@ public class FotoEJB implements FotoEJBLocal{
     
     @EJB
     FotoEJBFacade FotoFacade;
+    @EJB 
+    AlbumFotoEJBFacade AlbumFotoFacade;
 	
     public FotoEJB() {
        
@@ -61,4 +67,18 @@ public class FotoEJB implements FotoEJBLocal{
         return photosUser;
 
     }
+
+    @Override
+    public List<Foto> getFotosRecientes(int cantidad) {
+         List<Foto> fotos = FotoFacade.findAll();
+         Collections.sort(fotos, new Comparator<Foto>() {
+         @Override
+         public int compare(Foto f1, Foto f2) {
+         return f2.getFechaCarga().compareTo(f1.getFechaCarga());
+         }});
+           
+       return fotos.subList(0,cantidad);
+    }
+
+    
 }

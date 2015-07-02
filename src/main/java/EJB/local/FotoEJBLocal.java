@@ -9,6 +9,7 @@ import javax.ejb.Local;
 import MODEL.Foto;
 import java.util.ArrayList;
 
+@Local
 public interface FotoEJBLocal {
         
         Foto get(int id);
@@ -25,5 +26,8 @@ public interface FotoEJBLocal {
 
         List<Foto> getFotosbyUserId(int id);
         
-    
+        List<Foto> getFotosRecientes(int cantidad);
+        
+       
+        
 }

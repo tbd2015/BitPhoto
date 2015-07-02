@@ -9,6 +9,7 @@ import java.util.List;
 import javax.ejb.Local;
 //import java.util.Date;
 import MODEL.Album;
+import MODEL.Foto;
 
 
 @Local
@@ -16,7 +17,7 @@ public interface AlbumEJBLocal {
         
         List<Album> get();
         
-        Album get(int id);
+        Album getAlbum(int idAlbum);
 	
         void add(Album album);
 	
@@ -27,6 +28,10 @@ public interface AlbumEJBLocal {
         List<Album> findRange(int[] i);
 
         Object count();
-
-    
+        
+        List<Album> getAlbumesbycorreo(String correo);
+        
+        Foto getFotobyIdAlbum(int idAlbum);
+        
+        List<Foto> getFotosbyIdAlbum(int idAlbum);
 }

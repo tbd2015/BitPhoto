@@ -5,16 +5,28 @@ package EJB;
  * @author elias
  */
 import EJB.local.AlbumEJBLocal;
+import EJB.local.UsuarioEJBLocal;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import FACADE.AlbumEJBFacade;
+import FACADE.AlbumFotoEJBFacade;
+import FACADE.UsuarioEJBFacade;
 import MODEL.Album;
+import MODEL.AlbumFoto;
+import MODEL.Foto;
+import MODEL.Usuario;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Stateless
 public class AlbumEJB implements AlbumEJBLocal{
         @EJB
 	AlbumEJBFacade AlbumFacade;
+        @EJB
+        AlbumFotoEJBFacade AlbumFotoFacade;
+        @EJB
+        UsuarioEJBLocal UsuarioEJB;
 	
     public AlbumEJB() {
        
@@ -27,10 +39,8 @@ public class AlbumEJB implements AlbumEJBLocal{
     }
 	
     @Override
-    public Album get(int id) {
-            Album c = new Album();
-            c.setIdAlbum(id);
-            return this.AlbumFacade.find(c);
+    public Album getAlbum(int id) {
+            return AlbumFacade.find((Object)id);
     }
 
     @Override
@@ -67,6 +77,41 @@ public class AlbumEJB implements AlbumEJBLocal{
          //int id = userid;
          //return this.AlbumFacade.count(AlbumEJB.this.get(id));
     }
+
+    @Override
+    public List<Album> getAlbumesbycorreo(String correo) {
+         Usuario u = UsuarioEJB.findbycorreo(correo);
+         if(u!=null){
+         List<Album> listAlbum = new ArrayList(u.getAlbumCollection());
+         return listAlbum;
+         }
+         return null;    
+    }
+
+    @Override
+    public Foto getFotobyIdAlbum(int idAlbum) {
+           Album album = AlbumFacade.find(idAlbum);
+           Collection<AlbumFoto> af = album.getAlbumFotoCollection();
+           Foto primerafoto = null;
+           if(!af.isEmpty()){
+            for(AlbumFoto a: af){
+                primerafoto = a.getFoto();
+                if(primerafoto != null) break;
+            }
+           }
+           return primerafoto;
+    }
+
+    @Override
+    public List<Foto> getFotosbyIdAlbum(int idAlbum) {
+           Album album =  this.AlbumFacade.find(idAlbum);   
+           Collection<AlbumFoto> af = album.getAlbumFotoCollection();
+           List<Foto> fotos = new ArrayList<Foto>();
+           for(AlbumFoto a: af){
+               fotos.add(a.getFoto());
+           }
+           return fotos;
     
+    }
     
 }
