@@ -47,4 +47,21 @@ public class UsuarioService {
       }
 
     }
+
+    // Método agregado por Daniel
+    @GET
+    @Path("id/{num}")
+    @Produces({"application/json"})
+    public String getUserById(@PathParam("num") String num){
+          Usuario u = UsuarioEJB.getUser(Integer.parseInt(num));
+      if(u != null){
+          UsuarioJsonFormat ujf = new UsuarioJsonFormat();
+          String salida = ujf.UsuarioToJsonPrivate(u).toString();
+          return salida;
+                  
+      }else{
+          return "{ \"success\": false, \"message\": \"ID de Usuario no encontrado\" }";
+      }
+
+    }
 }
