@@ -1,17 +1,22 @@
 package EJB;
 
 import EJB.local.FotoEJBLocal;
+
 import FACADE.AlbumFotoEJBFacade;
-import java.util.List;
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
+import FACADE.FavoritosFotoEJBFacade;
 import FACADE.FotoEJBFacade;
-import MODEL.Album;
-import MODEL.Foto;
-import java.util.ArrayList;
+
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
+
+import MODEL.Foto;
+import MODEL.Usuario;
 
 @Stateless
 public class FotoEJB implements FotoEJBLocal{
@@ -20,65 +25,87 @@ public class FotoEJB implements FotoEJBLocal{
     FotoEJBFacade FotoFacade;
     @EJB 
     AlbumFotoEJBFacade AlbumFotoFacade;
+    @EJB
+    FavoritosFotoEJBFacade FavoritoFotoFacade;
 	
     public FotoEJB() {
        
     }
 
     @Override
-    public Foto get(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Foto getPhoto(int IdFoto) {
+        return this.FotoFacade.find(IdFoto);
     }
 
     @Override
-    public void add(Foto foto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void addPhoto(Foto photo) {
+        this.FotoFacade.create(photo);
     }
 
     @Override
-    public void update(Foto foto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void updatePhoto(Foto photo) {
+        this.FotoFacade.edit(photo);
     }
 
     @Override
-    public void remove(Foto foto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void removePhoto(Foto photo) {
+        this.FotoFacade.remove(photo);
     }
 
     @Override
-    public List<Foto> findRange(int[] i) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Integer countPhotos() {
+        return this.FotoFacade.findAll().size();
     }
-
+    
     @Override
-    public Object count() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Foto> getPhotoRange(int[] i) {
+        return this.FotoFacade.findRange(i);
     }
-
+    
     @Override
-    public List<Foto> getFotosbyUserId(int idUser) {   
-        List<Foto> photos = FotoFacade.findAll();
-        List<Foto> photosUser = new ArrayList<Foto>();
-        for (Foto f : photos) {
-            if(f.getIdUsuario() == idUser){
-                photosUser.add(f);
-            }
+    public List<Foto> getPhotosByUser(Usuario user) {   
+        Collection<Foto> collectionUsers =  user.getFotoCollection();
+        List<Foto> photosUser = new ArrayList<>();
+        for (Foto f : collectionUsers) {
+            photosUser.add(f);
         }       
         return photosUser;
-
     }
 
     @Override
-    public List<Foto> getFotosRecientes(int cantidad) {
-         List<Foto> fotos = FotoFacade.findAll();
-         Collections.sort(fotos, new Comparator<Foto>() {
+    public List<Foto> getLatestPhotosSystem(int lot) {
+        List<Foto> photos = FotoFacade.findAll();
+        Collections.sort(photos, new Comparator<Foto>() {
+        @Override
+        public int compare(Foto f1, Foto f2) {
+        return f2.getFechaCarga().compareTo(f1.getFechaCarga());
+        }});
+       if (photos.size()>lot){
+          return photos.subList(0,lot);
+       }else{
+          return photos;
+       }
+    }
+
+    @Override
+    public List<Foto> getLatestPhotosByUser(Usuario u, int lot) {
+         Collection<Foto> CollectionPhotos = u.getFotoCollection();
+         List<Foto> Photos = new ArrayList<>();
+         for(Foto f : CollectionPhotos){
+            Photos.add(f);
+         }
+         
+         Collections.sort(Photos, new Comparator<Foto>() {
          @Override
          public int compare(Foto f1, Foto f2) {
          return f2.getFechaCarga().compareTo(f1.getFechaCarga());
          }});
-           
-       return fotos.subList(0,cantidad);
+         
+       if (Photos.size() > lot){
+           return Photos.subList(0, lot);
+       }else{
+           return Photos;
+       }
     }
-
     
 }

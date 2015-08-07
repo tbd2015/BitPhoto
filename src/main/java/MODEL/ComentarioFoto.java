@@ -43,9 +43,6 @@ public class ComentarioFoto implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID_COMENTARIO_FOTO")
     private Integer idComentarioFoto;
-    @Size(max = 45)
-    @Column(name = "ID_USUARIO")
-    private String idUsuario;
     @Size(max = 256)
     @Column(name = "COMENTARIO_FOTO")
     private String comentarioFoto;
@@ -58,6 +55,9 @@ public class ComentarioFoto implements Serializable {
     @JoinColumn(name = "ID_FOTO", referencedColumnName = "ID_FOTO")
     @ManyToOne
     private Foto idFoto;
+    @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
+    @ManyToOne
+    private Usuario idUsuario;
 
     public ComentarioFoto() {
     }
@@ -74,11 +74,11 @@ public class ComentarioFoto implements Serializable {
         this.idComentarioFoto = idComentarioFoto;
     }
 
-    public String getIdUsuario() {
+    public Usuario getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(String idUsuario) {
+    public void setIdUsuario(Usuario idUsuario) {
         this.idUsuario = idUsuario;
     }
 

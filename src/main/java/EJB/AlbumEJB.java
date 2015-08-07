@@ -1,96 +1,88 @@
 package EJB;
 
-/**
- *
- * @author elias
- */
 import EJB.local.AlbumEJBLocal;
-import EJB.local.UsuarioEJBLocal;
+
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+
 import FACADE.AlbumEJBFacade;
 import FACADE.AlbumFotoEJBFacade;
-import FACADE.UsuarioEJBFacade;
+
 import MODEL.Album;
 import MODEL.AlbumFoto;
 import MODEL.Foto;
 import MODEL.Usuario;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
 @Stateless
 public class AlbumEJB implements AlbumEJBLocal{
-        @EJB
-	AlbumEJBFacade AlbumFacade;
-        @EJB
-        AlbumFotoEJBFacade AlbumFotoFacade;
-        @EJB
-        UsuarioEJBLocal UsuarioEJB;
+    @EJB
+    AlbumEJBFacade AlbumFacade;
+    @EJB
+    AlbumFotoEJBFacade AlbumFotoFacade;
 	
     public AlbumEJB() {
        
     }
     
     @Override
-    public List<Album> get() {
-
-            return this.AlbumFacade.findAll();
+    public List<Album> getAlbums() {
+        
+        return this.AlbumFacade.findAll();
     }
 	
     @Override
-    public Album getAlbum(int id) {
-            return AlbumFacade.find((Object)id);
-    }
-
-    @Override
-    public void add(Album album) {
-
-            this.AlbumFacade.create(album);
-
-    }
-
-    @Override
-    public void update(Album album) {
-
-            this.AlbumFacade.edit(album);
-
+    public List<Album> getAlbumsRange(int[] i) {
+        
+        return this.AlbumFacade.findRange(i);   
     }
     
     @Override
-    public void remove(Album album) {
+    public Album getAlbum(int IdAlbum) {
         
-            this.AlbumFacade.remove(album);
-
+        return AlbumFacade.find((Object)IdAlbum);
     }
 
     @Override
-    public List<Album> findRange(int[] i) {
+    public void addAlbum(Album album) {
+
+        this.AlbumFacade.create(album);
+    }
+
+    @Override
+    public void updateAlbum(Album album) {
+
+        this.AlbumFacade.edit(album);
+    }
+    
+    @Override
+    public void removeAlbum(Album album) {
         
-           return this.AlbumFacade.findRange(i);
-           
+        this.AlbumFacade.remove(album);
     }
 
     @Override
-    public Object count() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-         //int id = userid;
-         //return this.AlbumFacade.count(AlbumEJB.this.get(id));
+    public Integer countAlbums() {
+        
+        return this.AlbumFacade.findAll().size();
+    }
+    
+    @Override
+    public List<Album> getAlbumsByUser(Usuario user) {
+         if(user!=null){
+            List<Album> listAlbum = new ArrayList(user.getAlbumCollection());
+            return listAlbum;
+         }else{
+            return null; 
+         } 
     }
 
     @Override
-    public List<Album> getAlbumesbycorreo(String correo) {
-         Usuario u = UsuarioEJB.findbycorreo(correo);
-         if(u!=null){
-         List<Album> listAlbum = new ArrayList(u.getAlbumCollection());
-         return listAlbum;
-         }
-         return null;    
-    }
-
-    @Override
-    public Foto getFotobyIdAlbum(int idAlbum) {
-           Album album = AlbumFacade.find(idAlbum);
+    public Foto getPhotoByIdAlbum(int IdAlbum) {
+           Album album = AlbumFacade.find(IdAlbum);
            Collection<AlbumFoto> af = album.getAlbumFotoCollection();
            Foto primerafoto = null;
            if(!af.isEmpty()){
@@ -103,15 +95,34 @@ public class AlbumEJB implements AlbumEJBLocal{
     }
 
     @Override
-    public List<Foto> getFotosbyIdAlbum(int idAlbum) {
-           Album album =  this.AlbumFacade.find(idAlbum);   
+    public List<Foto> getPhotosByIdAlbum(int IdAlbum) {
+           Album album =  this.AlbumFacade.find(IdAlbum);   
            Collection<AlbumFoto> af = album.getAlbumFotoCollection();
            List<Foto> fotos = new ArrayList<Foto>();
            for(AlbumFoto a: af){
                fotos.add(a.getFoto());
            }
            return fotos;
-    
+    }
+
+    @Override
+    public void addAlbumPhoto(Album album, Foto photo) {
+        AlbumFoto af = new AlbumFoto();
+        af.setAlbum(album);
+        af.setFoto(photo);
+        boolean estado = false;
+        for(AlbumFoto aphoto : AlbumFotoFacade.findAll()){
+            if(aphoto.getAlbum().equals(album) && aphoto.getFoto().equals(photo)){
+              estado = true;
+              af = aphoto;
+              break;
+            }
+        }
+        if(!estado){
+            AlbumFotoFacade.create(af);
+        }else{
+            AlbumFotoFacade.edit(af);
+        }
     }
     
 }

@@ -1,39 +1,49 @@
 package EJB;
 
 import EJB.local.UsuarioEJBLocal;
+
+import FACADE.FavoritosFotoEJBFacade;
+import FACADE.FotoEJBFacade;
+import FACADE.UsuarioEJBFacade;
+
 import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import FACADE.UsuarioEJBFacade;
+
 import MODEL.Usuario;
 
 @Stateless
 public class UsuarioEJB implements UsuarioEJBLocal{
     @EJB
     UsuarioEJBFacade UsuarioFacade;
-	
+    @EJB
+    FavoritosFotoEJBFacade FavoritoFacade;
+    @EJB
+    FotoEJBFacade FotoFacade;
+    
     public UsuarioEJB() {
        
     }
-
+   
     @Override
-    public List<Usuario> get() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Usuario> getUsers() {
+        return this.UsuarioFacade.findAll();
     }
 
     @Override
-    public Usuario get(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Usuario getUser(int IdUsuario) {
+       return this.UsuarioFacade.find(IdUsuario);
     }
 
     @Override
-    public Usuario get(String email, String pass) {
+    public Usuario getUserConfirmByEmailAndPass(String email, String password) {
         List<Usuario> users = this.UsuarioFacade.findAll();
         for (Usuario u : users) {
             Integer id = u.getIdUsuario();
             String Correo = u.getCorreo();
             String Contraseña = u.getContrasena();
-            if(Correo.compareTo(email)== 0 &&  pass.compareTo(Contraseña) == 0){
+            if(Correo.compareTo(email)== 0 && password.compareTo(Contraseña) == 0){
                 return u;
             }
         }       
@@ -41,33 +51,32 @@ public class UsuarioEJB implements UsuarioEJBLocal{
 }
 
     @Override
-    public void add(Usuario user) {
-       UsuarioFacade.create(user);
-        //To change body of generated methods, choose Tools | Templates.
+    public void addUser(Usuario user) {
+       this.UsuarioFacade.create(user);
     }
 
     @Override
-    public void update(Usuario user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void updateUser(Usuario user) {
+       this.UsuarioFacade.edit(user);
     }
 
     @Override
-    public void remove(Usuario user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void removeUser(Usuario user) {
+       this.UsuarioFacade.remove(user);
     }
 
     @Override
-    public List<Usuario> findRange(int[] i) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Usuario> GetUserRange(int[] i) {
+       return this.UsuarioFacade.findRange(i);
     }
 
     @Override
-    public Object count() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Integer countUsers() {
+       return this.UsuarioFacade.findAll().size();
     }
 
     @Override
-    public int find(String email, String alias) {
+    public int findUserByEmailOrAlias(String email, String alias) {
         List<Usuario> users = this.UsuarioFacade.findAll();
         for (Usuario u : users) {
             if(u.getCorreo().compareTo(email)== 0){
@@ -81,7 +90,7 @@ public class UsuarioEJB implements UsuarioEJBLocal{
     }
     
     @Override
-    public Usuario findbyalias(String alias) {
+    public Usuario findUserByAlias(String alias) {
         List<Usuario> users = this.UsuarioFacade.findAll();
         for (Usuario u : users) {
             if(u.getAlias().compareTo(alias) == 0){
@@ -92,14 +101,14 @@ public class UsuarioEJB implements UsuarioEJBLocal{
     }
 
     @Override
-    public Usuario findbycorreo(String correo) {
+    public Usuario findUserByEmail(String email) {
         List<Usuario> users = this.UsuarioFacade.findAll();
         for (Usuario u : users) {
-            if(u.getCorreo().compareTo(correo) == 0){
+            if(u.getCorreo().compareTo(email) == 0){
                 return u;
             } 
         }       
         return null;
     }
-    
+
 }

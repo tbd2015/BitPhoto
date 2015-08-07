@@ -18,7 +18,7 @@ public class LoginService{
         @Produces({"application/json"})
         @Path("{correo}/{contrasena}")
         public String find(@PathParam("correo") String correo, @PathParam("contrasena") String contrasena){
-            Usuario u = UsuarioEJB.get(correo, contrasena);
+            Usuario u = UsuarioEJB.getUserConfirmByEmailAndPass(correo, contrasena);
             if (u != null) {
               return "{ \"success\": true }"; 
 

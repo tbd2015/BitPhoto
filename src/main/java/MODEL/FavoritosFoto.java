@@ -10,6 +10,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,7 +20,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -31,26 +32,29 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "FavoritosFoto.findAll", query = "SELECT f FROM FavoritosFoto f"),
     @NamedQuery(name = "FavoritosFoto.findByFechaFavFoto", query = "SELECT f FROM FavoritosFoto f WHERE f.fechaFavFoto = :fechaFavFoto"),
-    @NamedQuery(name = "FavoritosFoto.findByIdUsuario", query = "SELECT f FROM FavoritosFoto f WHERE f.idUsuario = :idUsuario")})
+    @NamedQuery(name = "FavoritosFoto.findByIdFavoritosFoto", query = "SELECT f FROM FavoritosFoto f WHERE f.idFavoritosFoto = :idFavoritosFoto")})
 public class FavoritosFoto implements Serializable {
     private static final long serialVersionUID = 1L;
     @Column(name = "FECHA_FAV_FOTO")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaFavFoto;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "ID_USUARIO")
-    private Integer idUsuario;
+    @Column(name = "ID_FAVORITOS_FOTO")
+    private Integer idFavoritosFoto;
     @JoinColumn(name = "ID_FOTO", referencedColumnName = "ID_FOTO")
     @ManyToOne
     private Foto idFoto;
+    @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
+    @ManyToOne
+    private Usuario idUsuario;
 
     public FavoritosFoto() {
     }
 
-    public FavoritosFoto(Integer idUsuario) {
-        this.idUsuario = idUsuario;
+    public FavoritosFoto(Integer idFavoritosFoto) {
+        this.idFavoritosFoto = idFavoritosFoto;
     }
 
     public Date getFechaFavFoto() {
@@ -61,12 +65,12 @@ public class FavoritosFoto implements Serializable {
         this.fechaFavFoto = fechaFavFoto;
     }
 
-    public Integer getIdUsuario() {
-        return idUsuario;
+    public Integer getIdFavoritosFoto() {
+        return idFavoritosFoto;
     }
 
-    public void setIdUsuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setIdFavoritosFoto(Integer idFavoritosFoto) {
+        this.idFavoritosFoto = idFavoritosFoto;
     }
 
     public Foto getIdFoto() {
@@ -77,10 +81,18 @@ public class FavoritosFoto implements Serializable {
         this.idFoto = idFoto;
     }
 
+    public Usuario getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Usuario idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idUsuario != null ? idUsuario.hashCode() : 0);
+        hash += (idFavoritosFoto != null ? idFavoritosFoto.hashCode() : 0);
         return hash;
     }
 
@@ -91,7 +103,7 @@ public class FavoritosFoto implements Serializable {
             return false;
         }
         FavoritosFoto other = (FavoritosFoto) object;
-        if ((this.idUsuario == null && other.idUsuario != null) || (this.idUsuario != null && !this.idUsuario.equals(other.idUsuario))) {
+        if ((this.idFavoritosFoto == null && other.idFavoritosFoto != null) || (this.idFavoritosFoto != null && !this.idFavoritosFoto.equals(other.idFavoritosFoto))) {
             return false;
         }
         return true;
@@ -99,7 +111,7 @@ public class FavoritosFoto implements Serializable {
 
     @Override
     public String toString() {
-        return "Entities.FavoritosFoto[ idUsuario=" + idUsuario + " ]";
+        return "MODEL.FavoritosFoto[ idFavoritosFoto=" + idFavoritosFoto + " ]";
     }
     
 }

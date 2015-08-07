@@ -42,7 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Foto.findAll", query = "SELECT f FROM Foto f"),
     @NamedQuery(name = "Foto.findByIdFoto", query = "SELECT f FROM Foto f WHERE f.idFoto = :idFoto"),
-    @NamedQuery(name = "Foto.findByIdUsuario", query = "SELECT f FROM Foto f WHERE f.idUsuario = :idUsuario"),
+    @NamedQuery(name = "Foto.findByIdCamara", query = "SELECT f FROM Foto f WHERE f.idCamara = :idCamara"),
     @NamedQuery(name = "Foto.findByFechaCarga", query = "SELECT f FROM Foto f WHERE f.fechaCarga = :fechaCarga"),
     @NamedQuery(name = "Foto.findByFechaTomada", query = "SELECT f FROM Foto f WHERE f.fechaTomada = :fechaTomada"),
     @NamedQuery(name = "Foto.findByVistas", query = "SELECT f FROM Foto f WHERE f.vistas = :vistas"),
@@ -59,8 +59,8 @@ public class Foto implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID_FOTO")
     private Integer idFoto;
-    @Column(name = "ID_USUARIO")
-    private Integer idUsuario;
+    //@Column(name = "ID_USUARIO")
+    //private Integer idUsuario;
     @Column(name = "FECHA_CARGA")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCarga;
@@ -83,7 +83,6 @@ public class Foto implements Serializable {
     @Size(max = 20)
     @Column(name = "FORMATO")
     private String formato;
-    //@lob
     @Column(name = "PUNTO_LUGAR")
     private  char[] puntoLugar = null;
     @Column(name = "CANT_COM")
@@ -92,13 +91,15 @@ public class Foto implements Serializable {
     @JoinTable(name = "ETIQUETA", joinColumns = {
         @JoinColumn(name = "ID_FOTO", referencedColumnName = "ID_FOTO")}, inverseJoinColumns = {
         @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")})
-    @ManyToMany
-    private Collection<Usuario> usuarioCollection;
+    
     @ManyToMany(mappedBy = "fotoCollection")
     private Collection<Permiso> permisoCollection;
     @JoinColumn(name = "ID_CAMARA", referencedColumnName = "ID_CAMARA")
     @ManyToOne
     private Camara idCamara;
+    @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
+    @ManyToOne
+    private Usuario idUsuario;
     @OneToMany(mappedBy = "idFoto")
     private Collection<ComentarioFoto> comentarioFotoCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "foto")
@@ -106,6 +107,7 @@ public class Foto implements Serializable {
     @OneToMany(mappedBy = "idFoto")
     private Collection<FavoritosFoto> favoritosFotoCollection;
 
+    
     public Foto() {
     }
 
@@ -121,11 +123,11 @@ public class Foto implements Serializable {
         this.idFoto = idFoto;
     }
 
-    public Integer getIdUsuario() {
+    public Usuario getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Integer idUsuario) {
+    public void setIdUsuario(Usuario idUsuario) {
         this.idUsuario = idUsuario;
     }
 
@@ -210,14 +212,14 @@ public class Foto implements Serializable {
         this.cantCom = cantCom;
     }
 
-    @XmlTransient
+    /*@XmlTransient
     public Collection<Usuario> getUsuarioCollection() {
         return usuarioCollection;
     }
 
     public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
         this.usuarioCollection = usuarioCollection;
-    }
+    }*/
 
     @XmlTransient
     public Collection<Permiso> getPermisoCollection() {
@@ -285,7 +287,7 @@ public class Foto implements Serializable {
 
     @Override
     public String toString() {
-        return "Entities.Foto[ idFoto=" + idFoto + " ]";
+        return "MODEL.Foto[ idFoto=" + idFoto + " ]";
     }
     
    /* public List getFotosByName(EntityManager em, int idUsuario){

@@ -37,10 +37,9 @@ public class PhotoStreamService {
         @Produces({"application/json"})
         @Path("{correo}")
         public String getphotosUser(@PathParam("correo") String correo){
-            Usuario u = UsuarioEJB.findbycorreo(correo);
+            Usuario u = UsuarioEJB.findUserByEmail(correo);
             if (u != null) {  
-              int id = u.getIdUsuario();
-              List<Foto> fotos = FotoEJB.getFotosbyUserId(id);
+              List<Foto> fotos = FotoEJB.getPhotosByUser(u);
               if(!fotos.isEmpty()){
                   String JsonList = ListToJson(fotos,u);
                   return JsonList;

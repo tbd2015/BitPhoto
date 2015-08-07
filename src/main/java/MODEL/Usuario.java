@@ -9,8 +9,10 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -92,8 +94,7 @@ public class Usuario implements Serializable {
     @Size(max = 144)
     @Column(name = "DESCRIPCION")
     private String descripcion;
-    @ManyToMany(mappedBy = "usuarioCollection")
-    private Collection<Foto> fotoCollection;
+        
     @JoinTable(name = "TAG_USUARIO", joinColumns = {
         @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")}, inverseJoinColumns = {
         @JoinColumn(name = "ID_TAG", referencedColumnName = "ID_TAG")})
@@ -103,7 +104,12 @@ public class Usuario implements Serializable {
     private Collection<Album> albumCollection;
     @OneToMany(mappedBy = "idUsuario")
     private Collection<UsuarioUsuario> usuarioUsuarioCollection;
-
+    @OneToMany(mappedBy = "idUsuario")
+    private Collection<ComentarioFoto> comentarioFotoCollection;
+    @OneToMany(mappedBy = "idUsuario")
+    private Collection<Foto> fotoCollection;
+    
+    
     public Usuario(){
         this.idUsuario = null;
         this.alias = null;
@@ -251,6 +257,15 @@ public class Usuario implements Serializable {
         this.fotoCollection = fotoCollection;
     }
 
+    @XmlTransient
+    public Collection<ComentarioFoto> getComentarioFotoCollection() {
+        return comentarioFotoCollection;
+    }
+
+    public void setComentarioFotoCollection(Collection<ComentarioFoto> comentarioFotoCollection) {
+        this.comentarioFotoCollection = comentarioFotoCollection;
+    }
+    
     @XmlTransient
     public Collection<Tag> getTagCollection() {
         return tagCollection;
