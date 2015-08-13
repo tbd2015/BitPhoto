@@ -75,8 +75,8 @@ public class AlbumService {
     @Path("{correo}/{idAlbum}")
     @Produces({"application/json"})
     public String getFotosAlbumbyIdAlbum(@PathParam("correo") String email, @PathParam("idAlbum") Integer IdAlbum){
-          Usuario u = UsuarioEJB.findUserByEmail(email);
           Album album = AlbumEJB.getAlbum(IdAlbum);
+          Usuario u = album.getIdUsuario();
           List<Foto> photos = AlbumEJB.getPhotosByIdAlbum(IdAlbum);       
             if(u != null){
                 if (photos != null){
