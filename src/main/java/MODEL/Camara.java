@@ -45,23 +45,27 @@ public class Camara implements Serializable {
     @Column(name = "ID_CAMARA")
     private Integer idCamara;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Size(max = 20)
     @Column(name = "MEGAPIXELES")
-    private Float megapixeles;
+    private String megapixeles;
     @Column(name = "ZOOM")
     private Float zoom;
     @Size(max = 256)
     @Column(name = "URL_FOTO_CAMARA")
     private String urlFotoCamara;
-    @Size(max = 20)
+    @Size(max = 100)
     @Column(name = "NOMBRE")
     private String nombre;
-    @Size(max = 20)
+    @Size(max = 100)
     @Column(name = "MODELO")
     private String modelo;
     @Column(name = "CANT_FOTOS")
     private Integer cantFotos;
     @OneToMany(mappedBy = "idCamara")
     private Collection<Foto> fotoCollection;
+    @Size(max = 20)
+    @Column(name = "MARCA")
+    private String marca;
 
     public Camara() {
     }
@@ -78,11 +82,11 @@ public class Camara implements Serializable {
         this.idCamara = idCamara;
     }
 
-    public Float getMegapixeles() {
+    public String getMegapixeles() {
         return megapixeles;
     }
 
-    public void setMegapixeles(Float megapixeles) {
+    public void setMegapixeles(String megapixeles) {
         this.megapixeles = megapixeles;
     }
 
@@ -135,6 +139,15 @@ public class Camara implements Serializable {
         this.fotoCollection = fotoCollection;
     }
 
+    @XmlTransient
+    public String getMarca(){
+        return this.marca;
+    }
+    
+    public void setMarca(String marca){
+        this.marca = marca;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

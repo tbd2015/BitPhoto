@@ -42,8 +42,9 @@ public class RegisterService{
                     u.setCorreo(user.getCorreo());
                     u.setContrasena(user.getContrasena());
                     //DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-                    u.setFechaCreacion(new Date());
+                   
                     u.setDescripcion("Nuevo usuario BitPhoto");
+                    
                     
                    UsuarioEJB.addUser(u);
 
