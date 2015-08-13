@@ -2,9 +2,9 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="bitphoto" transaction-type="JTA">
     <jta-data-source>jdbc/bitphoto</jta-data-source>
-    <class>MODEL.Album</class>
-    <class>MODEL.Foto</class>
-    <class>MODEL.AlbumFoto</class>
+    <!--<class>Model.Album</class>
+    <class>Model.Foto</class> -->
+    <!--<class>MODEL.AlbumFoto</class>
     <class>MODEL.AlbumFotoPK</class>
     <class>MODEL.Camara</class>
     <class>MODEL.Clasificacion</class>
@@ -18,11 +18,11 @@
     <class>MODEL.TagFoto</class>
     <class>MODEL.TagFotoPK</class>
     <class>MODEL.Usuario</class>
-    <class>MODEL.UsuarioUsuario</class>
-    <!-- <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/bitphoto?zeroDateTimeBehavior=convertToNull"/>
-    <property name="javax.persistence.jdbc.password" value="angeldge"/>
+    <class>MODEL.UsuarioUsuario</class> -->
+    <!-- <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/bitphoto?zeroDateTimeBehavior=convertToNull"/> -->
+    <!--<property name="javax.persistence.jdbc.password" value="Q5rErhdr1VTD"/>
     <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-    <property name="javax.persistence.jdbc.user" value="root"/>
+    <property name="javax.persistence.jdbc.user" value="adminN8X2EVp"/>
     <property name="eclipselink.ddl-generation" value="create-tables"/>
     -->
     </persistence-unit>
