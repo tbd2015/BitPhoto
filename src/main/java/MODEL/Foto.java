@@ -59,8 +59,6 @@ public class Foto implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID_FOTO")
     private Integer idFoto;
-    //@Column(name = "ID_USUARIO")
-    //private Integer idUsuario;
     @Column(name = "FECHA_CARGA")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCarga;
@@ -88,9 +86,9 @@ public class Foto implements Serializable {
     @Column(name = "CANT_COM")
     private Integer cantCom;
     
-    @JoinTable(name = "ETIQUETA", joinColumns = {
-        @JoinColumn(name = "ID_FOTO", referencedColumnName = "ID_FOTO")}, inverseJoinColumns = {
-        @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")})
+    //@JoinTable(name = "ETIQUETA", joinColumns = {
+    //@JoinColumn(name = "ID_FOTO", referencedColumnName = "ID_FOTO")}, inverseJoinColumns = {
+    //@JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")})
     
     @ManyToMany(mappedBy = "fotoCollection")
     private Collection<Permiso> permisoCollection;
@@ -106,7 +104,8 @@ public class Foto implements Serializable {
     private Collection<AlbumFoto> albumFotoCollection;
     @OneToMany(mappedBy = "idFoto")
     private Collection<FavoritosFoto> favoritosFotoCollection;
-
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFoto")
+    private Collection<Etiqueta> etiquetaCollection;
     
     public Foto() {
     }
@@ -212,15 +211,6 @@ public class Foto implements Serializable {
         this.cantCom = cantCom;
     }
 
-    /*@XmlTransient
-    public Collection<Usuario> getUsuarioCollection() {
-        return usuarioCollection;
-    }
-
-    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
-        this.usuarioCollection = usuarioCollection;
-    }*/
-
     @XmlTransient
     public Collection<Permiso> getPermisoCollection() {
         return permisoCollection;
@@ -264,6 +254,15 @@ public class Foto implements Serializable {
     public void setFavoritosFotoCollection(Collection<FavoritosFoto> favoritosFotoCollection) {
         this.favoritosFotoCollection = favoritosFotoCollection;
     }
+    
+    @XmlTransient
+    public Collection<Etiqueta> getEtiquetaCollection() {
+        return etiquetaCollection;
+    }
+
+    public void setEtiquetaCollection(Collection<Etiqueta> etiquetaCollection) {
+        this.etiquetaCollection = etiquetaCollection;
+    }
 
     @Override
     public int hashCode() {
@@ -289,11 +288,5 @@ public class Foto implements Serializable {
     public String toString() {
         return "MODEL.Foto[ idFoto=" + idFoto + " ]";
     }
-    
-   /* public List getFotosByName(EntityManager em, int idUsuario){
-    TypedQuery<Foto> query = em.createQuery("SELECT f FROM Foto f WHERE f.idUsuario = :idUsuario", Foto.class);
-    
-    return query.setParameter("idUsuario", idUsuario).getResultList();     
-    }*/
     
 }

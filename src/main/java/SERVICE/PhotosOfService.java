@@ -15,6 +15,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import EJB.local.UsuarioEJBLocal;
 import EJB.local.UsuarioUsuarioEJBLocal;
+import MODEL.Etiqueta;
 import MODEL.FavoritosFoto;
 import MODEL.Foto;
 import MODEL.Usuario;
@@ -24,11 +25,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.PUT;
 import SERVICE.JsonFormat.*;
+import java.util.Collection;
 import javax.json.*;
 
-@Path("/photosfrom")
+@Path("/photosof")
 @Produces({"application/json"})
-public class PhotosFrom {
+public class PhotosOfService {
     
     @EJB
     FotoEJBLocal FotoEJB;
@@ -40,7 +42,7 @@ public class PhotosFrom {
         @GET
         @Produces({"application/json"})
         @Path("{cant}/{correo}")
-        public String getphotosfrom(@PathParam("cant") String cantidad, @PathParam("correo") String correo){
+        public String getphotosof(@PathParam("cant") String cantidad, @PathParam("correo") String correo){
             Usuario u = UsuarioEJB.findUserByEmail(correo);
             List<Usuario> UsuariosFollows = UsuarioUsuarioEJB.getUsersFollow(u);
             if (u != null) {  
@@ -69,14 +71,14 @@ public class PhotosFrom {
             String Usuarios[] = new String[UsuariosFollows.size()];        
             for(int i = 0; i< UsuariosFollows.size(); i++){
                if(i!= UsuariosFollows.size()-1){
-                List<Foto> photosUser = FotoEJB.getLatestPhotosByUser(UsuariosFollows.get(i), cant);
+                List<Foto> photosUser = FotoEJB.getLatestUserPhotosEtiqueta(UsuariosFollows.get(i), cant);
                 Usuarios[i] =  "{ \"idusuario\": \""+UsuariosFollows.get(i).getIdUsuario()+"\", \"alias\": \""+UsuariosFollows.get(i).getAlias()+"\", \"numfotos\": \""+photosUser.size()+"\", \"photos\": ";
                 FotoJsonFormat fformat = new FotoJsonFormat();
                 String photos = fformat.FotosToJsonPrivate(photosUser).toString();
                 String usuarioout = " } ,\n";
                 Usuarios[i] = Usuarios[i].concat(photos).concat(usuarioout);
                }else{
-                List<Foto> photosUser = FotoEJB.getLatestPhotosByUser(UsuariosFollows.get(i), cant);
+                List<Foto> photosUser = FotoEJB.getLatestUserPhotosEtiqueta(UsuariosFollows.get(i), cant);
                 Usuarios[i] =  "{ \"idusuario\": \""+UsuariosFollows.get(i).getIdUsuario()+"\", \"alias\": \""+UsuariosFollows.get(i).getAlias()+"\", \"numfotos\": \""+photosUser.size()+"\", \"photos\": ";
                 FotoJsonFormat fformat = new FotoJsonFormat();
                 String photos;
@@ -90,3 +92,4 @@ public class PhotosFrom {
             return salida;
         }
 }
+

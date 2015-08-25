@@ -108,6 +108,8 @@ public class Usuario implements Serializable {
     private Collection<ComentarioFoto> comentarioFotoCollection;
     @OneToMany(mappedBy = "idUsuario")
     private Collection<Foto> fotoCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
+    private Collection<Etiqueta> etiquetaCollection;
     
     
     public Usuario(){
@@ -291,6 +293,15 @@ public class Usuario implements Serializable {
 
     public void setUsuarioUsuarioCollection(Collection<UsuarioUsuario> usuarioUsuarioCollection) {
         this.usuarioUsuarioCollection = usuarioUsuarioCollection;
+    }
+    
+    @XmlTransient
+    public Collection<Etiqueta> getEtiquetaCollection() {
+        return etiquetaCollection;
+    }
+
+    public void setEtiquetaCollection(Collection<Etiqueta> etiquetaCollection) {
+        this.etiquetaCollection = etiquetaCollection;
     }
 
     @Override

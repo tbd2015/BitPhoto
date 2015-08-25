@@ -5,6 +5,7 @@ import EJB.local.FotoEJBLocal;
 import FACADE.AlbumFotoEJBFacade;
 import FACADE.FavoritosFotoEJBFacade;
 import FACADE.FotoEJBFacade;
+import MODEL.Etiqueta;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -17,6 +18,7 @@ import javax.ejb.Stateless;
 
 import MODEL.Foto;
 import MODEL.Usuario;
+import java.util.AbstractList;
 
 @Stateless
 public class FotoEJB implements FotoEJBLocal{
@@ -106,6 +108,27 @@ public class FotoEJB implements FotoEJBLocal{
        }else{
            return Photos;
        }
+    }
+
+    @Override
+    public List<Foto> getLatestUserPhotosEtiqueta(Usuario user, int lot) {
+             Collection<Etiqueta> collectionEtiquetaUser = user.getEtiquetaCollection();
+             List<Foto> arrayPhoto = new ArrayList<>();
+             for(Etiqueta e : collectionEtiquetaUser){
+                 arrayPhoto.add(e.getIdFoto());
+             }
+             
+             Collections.sort(arrayPhoto, new Comparator<Foto>() {
+             @Override
+             public int compare(Foto f1, Foto f2) {
+             return f2.getFechaCarga().compareTo(f1.getFechaCarga());
+             }});
+             
+             if (arrayPhoto.size() > lot){
+                return arrayPhoto.subList(0, lot);
+             }else{
+                return arrayPhoto;
+             }
     }
     
 }

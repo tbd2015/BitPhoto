@@ -25,7 +25,7 @@ public class FotoJsonFormat {
                     .add("Cantidad_favoritos", f.getCantFavor())
                     .add("fecha_carga", (String) ((f.getFechaCarga() == null) ? "" : f.getFechaCarga().toString()))
                     .add("fecha_toma", (String) (f.getFechaTomada() == null ?  "" :f.getFechaTomada().toString()))
-                    .add("IdCamara", (String) (f.getIdCamara() == null ? "" : String.valueOf(f.getIdCamara())));
+                    .add("IdCamara", (String) (f.getIdCamara() == null ? "" : String.valueOf(f.getIdCamara().getIdCamara())));
             JsonObject FotoJsonObject = FotoBuilder.build();
             return FotoJsonObject;
     }

@@ -20,5 +20,5 @@ public interface FotoEJBLocal {
         List<Foto> getPhotosByUser(Usuario user); // Return all photos from a user
         List<Foto> getLatestPhotosSystem(int lot); // Return the lasted photos addess to the system
         List<Foto> getLatestPhotosByUser(Usuario user, int lot); // Return the lasted photos addess by a user to the system
-        
+        List<Foto> getLatestUserPhotosEtiqueta(Usuario user, int lot);
 }

@@ -16,17 +16,21 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import EJB.local.UsuarioEJBLocal;
 import MODEL.ComentarioFoto;
+import MODEL.Etiqueta;
 import MODEL.FavoritosFoto;
 import MODEL.Foto;
 import MODEL.Usuario;
 import SERVICE.JsonFormat.ComentarioFotoJsonFormat;
 import SERVICE.JsonFormat.FotoJsonFormat;
+import SERVICE.JsonFormat.UsuarioJsonFormat;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 //import javax.json.*;
 import com.google.gson.*;
+import java.util.AbstractList;
+import java.util.Collection;
 import javax.ws.rs.PUT;
 import org.json.simple.JSONArray;
 
@@ -97,6 +101,67 @@ public class PhotoService {
                 return "{ \"success\": false, \"message\": \"Hay problemas en el sistema\", \"trackerror\": \""+e.getMessage()+"\" }";
             }
         }
+        
+        @POST
+        @Produces({"application/json"})
+        @Path("{correo}/etiquetar")
+        @Consumes(MediaType.APPLICATION_JSON)
+        public String createEtiquetaPhoto(Etiqueta e){
+            try {
+                Etiqueta en = new Etiqueta();
+                en.setIdUsuario(UsuarioEJB.getUser(e.getIdUsuario().getIdUsuario()));
+                en.setIdFoto(FotoEJB.getPhoto(e.getIdFoto().getIdFoto()));
+                FotoEJB.getPhoto(e.getIdFoto().getIdFoto()).getEtiquetaCollection().add(en);
+                return "{ \"success\": true, \"message\": \"Operacion de favorito foto exitosa\" }";
+            }catch(Exception ex){
+                return "{ \"success\": false, \"message\": \"Hay problemas en el sistema\", \"trackerror\": \""+ex.getMessage()+"\" }";
+            }
+        }
+        
+        @DELETE
+        @Produces({"application/json"})
+        @Path("{correo}/desEtiquetar")
+        @Consumes(MediaType.APPLICATION_JSON)
+        public String deleteEtiquetaPhoto(Etiqueta e){
+            try {
+                Etiqueta en = new Etiqueta();
+                en.setIdUsuario(UsuarioEJB.getUser(e.getIdUsuario().getIdUsuario()));
+                en.setIdFoto(FotoEJB.getPhoto(e.getIdFoto().getIdFoto()));
+                FotoEJB.getPhoto(e.getIdFoto().getIdFoto()).getEtiquetaCollection().remove(en);
+                return "{ \"success\": true, \"message\": \"Operacion de favorito foto exitosa\" }";
+            }catch(Exception ex){
+                return "{ \"success\": false, \"message\": \"Hay problemas en el sistema\", \"trackerror\": \""+ex.getMessage()+"\" }";
+            }
+        }
+        
+        @GET
+        @Produces({"application/json"})
+        @Path("{correo}/{idphoto}/etiquetas")
+        public String getEtiquetasPhotos(@PathParam("correo") String correo, @PathParam("idphoto") String idphoto){
+              Foto photo = FotoEJB.getPhoto(Integer.parseInt(idphoto));
+              Collection<Etiqueta> collectionEtiquetaPhotos = photo.getEtiquetaCollection();
+              List<Usuario> userEtiquetaPhotos = new ArrayList<>();
+              for(Etiqueta e: collectionEtiquetaPhotos){
+                 userEtiquetaPhotos.add(e.getIdUsuario());
+              }
+              UsuarioJsonFormat jfu = new UsuarioJsonFormat();
+              return jfu.UsuariosToJsonPrivate(userEtiquetaPhotos).toString();
+        }
+        
+        @GET
+        @Produces({"application/json"})
+        @Path("{correo}/photosEtiquetado")
+        public String getPhotosEtiquetas(@PathParam("correo") String correo){
+           Collection<Etiqueta> collectionEtiqueta = UsuarioEJB.findUserByEmail(correo).getEtiquetaCollection();
+           List<Foto> photosEtiquetaUser = new ArrayList<>();
+           for(Etiqueta e :collectionEtiqueta){
+              photosEtiquetaUser.add(e.getIdFoto());
+           }
+           FotoJsonFormat fjf = new FotoJsonFormat();
+           return fjf.FotosToJsonPrivate(photosEtiquetaUser).toString();
+        }
+        
+        
         
         @POST
         @Produces({"application/json"})
@@ -221,6 +286,50 @@ public class PhotoService {
              return null;
         }
        
+        @POST
+        @Produces({"application/json"})
+        @Path("{correo}/subir")
+        @Consumes(MediaType.APPLICATION_JSON)
+        public String createPhoto(@PathParam("correo") String correo, Foto foto){
+            try {
+                Foto f = new Foto();
+                Usuario u = UsuarioEJB.findUserByEmail(correo);
+                f.setIdUsuario(u);
+                f.setCantCom(0);
+                f.setCantFavor(0);
+                f.setDescripcion(foto.getDescripcion());
+                f.setFechaCarga(null);
+                f.setFechaTomada(foto.getFechaTomada());
+                f.setFormato(foto.getFormato());
+                f.setIdCamara(foto.getIdCamara());
+                f.setPuntoLugar(foto.getPuntoLugar());
+                f.setTitulo(foto.getTitulo());
+                f.setUrl(foto.getUrl());
+                f.setVistas(0);
+                FotoEJB.addPhoto(f);
+                return "{ \"success\": true, \"message\": \"Operacion de favorito foto exitosa\" }";
+            }catch(Exception ex){
+                return "{ \"success\": false, \"message\": \"Hay problemas en el sistema\", \"trackerror\": \""+ex.getMessage()+"\" }";
+            }
+        }
+        
+        @DELETE
+        @Produces({"application/json"})
+        @Path("{correo}/delphoto")
+        @Consumes(MediaType.APPLICATION_JSON)
+        public String deleteEtiquetaPhoto(@PathParam("correo") String correo,Foto f){
+            try {
+                if(UsuarioEJB.findUserByEmail(correo).equals(UsuarioEJB.getUser(f.getIdUsuario().getIdUsuario()))){
+                FotoEJB.removePhoto(FotoEJB.getPhoto(f.getIdFoto()));
+                return "{ \"success\": true, \"message\": \"Operacion de borrar foto exitosa\" }";
+                }else{
+                return "{ \"success\": false, \"message\": \"Hay problemas en el sistema\", \"trackerror\": \"Usuario sin permiso de borrar\" }";
+                }
+            }catch(Exception ex){
+                return "{ \"success\": false, \"message\": \"Hay problemas en el sistema\", \"trackerror\": \""+ex.getMessage()+"\" }";
+            }
+        }
+        
 }
 
        
