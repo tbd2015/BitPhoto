@@ -99,6 +99,8 @@ public class Foto implements Serializable {
     @ManyToOne
     private Usuario idUsuario;
     @OneToMany(mappedBy = "idFoto")
+    private Collection<TagFoto> tagFotoCollection;
+    @OneToMany(mappedBy = "idFoto")
     private Collection<ComentarioFoto> comentarioFotoCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "foto")
     private Collection<AlbumFoto> albumFotoCollection;
@@ -219,7 +221,17 @@ public class Foto implements Serializable {
     public void setPermisoCollection(Collection<Permiso> permisoCollection) {
         this.permisoCollection = permisoCollection;
     }
+    
+    @XmlTransient
+    public Collection<TagFoto> getTagFotoCollection() {
+        return tagFotoCollection;
+    }
 
+    public void setTagFotoCollection(Collection<TagFoto> tagFotoCollection) {
+        this.tagFotoCollection = tagFotoCollection;
+    }
+    
+    
     public Camara getIdCamara() {
         return idCamara;
     }

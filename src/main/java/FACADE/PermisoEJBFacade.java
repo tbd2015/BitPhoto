@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import MODEL.Permiso;
 
+@Stateless
 public class PermisoEJBFacade extends AbstractFacade<Permiso> {
         
         @PersistenceContext(unitName = "bitphoto")

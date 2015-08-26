@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import MODEL.TagFoto;
 
+@Stateless
 public class TagFotoEJBFacade extends AbstractFacade<TagFoto> {
         
         @PersistenceContext(unitName = "bitphoto")

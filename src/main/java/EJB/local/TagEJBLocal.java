@@ -9,9 +9,10 @@ import MODEL.Usuario;
 
 @Local
 public interface TagEJBLocal {
-    boolean createTag(Tag tag);
+    Tag createTag(Tag tag);
     List<Tag> getPhotoTags(int IdPhoto);
     void addTagPhoto(Tag t, Foto f);
-    void deleteTagPhoto(Tag t);
-
+    void addTagUsuario(Tag t, Usuario u);
+    void deleteTagPhoto(Tag t, Foto f);
+    Tag getTag(String nombre);
 }

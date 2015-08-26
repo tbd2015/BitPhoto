@@ -13,9 +13,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -42,8 +42,10 @@ public class Tag implements Serializable {
     @Size(max = 256)
     @Column(name = "NOMBRE_TAG")
     private String nombreTag;
-    @ManyToMany(mappedBy = "tagCollection")
-    private Collection<Usuario> usuarioCollection;
+    @OneToMany(mappedBy = "idTag")
+    private Collection<TagFoto> tagFotoCollection;
+    @OneToMany(mappedBy = "idTag")
+    private Collection<TagUsuario> tagUsuarioCollection;
 
     public Tag() {
     }
@@ -69,12 +71,21 @@ public class Tag implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Usuario> getUsuarioCollection() {
-        return usuarioCollection;
+    public Collection<TagFoto> getTagFotoCollection() {
+        return tagFotoCollection;
     }
 
-    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
-        this.usuarioCollection = usuarioCollection;
+    public void setTagFotoCollection(Collection<TagFoto> tagFotoCollection) {
+        this.tagFotoCollection = tagFotoCollection;
+    }
+
+    @XmlTransient
+    public Collection<TagUsuario> getTagUsuarioCollection() {
+        return tagUsuarioCollection;
+    }
+
+    public void setTagUsuarioCollection(Collection<TagUsuario> tagUsuarioCollection) {
+        this.tagUsuarioCollection = tagUsuarioCollection;
     }
 
     @Override
@@ -99,7 +110,7 @@ public class Tag implements Serializable {
 
     @Override
     public String toString() {
-        return "Entities.Tag[ idTag=" + idTag + " ]";
+        return "entiti.Tag[ idTag=" + idTag + " ]";
     }
     
 }

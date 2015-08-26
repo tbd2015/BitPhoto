@@ -24,38 +24,38 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author elias
  */
 @Entity
-@Table(name = "TAG_FOTO")
+@Table(name = "TAG_USUARIO")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "TagFoto.findAll", query = "SELECT t FROM TagFoto t"),
-    @NamedQuery(name = "TagFoto.findByIdTagFoto", query = "SELECT t FROM TagFoto t WHERE t.idTagFoto = :idTagFoto")})
-public class TagFoto implements Serializable {
+    @NamedQuery(name = "TagUsuario.findAll", query = "SELECT t FROM TagUsuario t"),
+    @NamedQuery(name = "TagUsuario.findByIdTagUsuario", query = "SELECT t FROM TagUsuario t WHERE t.idTagUsuario = :idTagUsuario")})
+public class TagUsuario implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "ID_TAG_FOTO")
-    private Integer idTagFoto;
+    @Column(name = "ID_TAG_USUARIO")
+    private Integer idTagUsuario;
     @JoinColumn(name = "ID_TAG", referencedColumnName = "ID_TAG")
     @ManyToOne
     private Tag idTag;
-    @JoinColumn(name = "ID_FOTO", referencedColumnName = "ID_FOTO")
+    @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
     @ManyToOne
-    private Foto idFoto;
+    private Usuario idUsuario;
 
-    public TagFoto() {
+    public TagUsuario() {
     }
 
-    public TagFoto(Integer idTagFoto) {
-        this.idTagFoto = idTagFoto;
+    public TagUsuario(Integer idTagUsuario) {
+        this.idTagUsuario = idTagUsuario;
     }
 
-    public Integer getIdTagFoto() {
-        return idTagFoto;
+    public Integer getIdTagUsuario() {
+        return idTagUsuario;
     }
 
-    public void setIdTagFoto(Integer idTagFoto) {
-        this.idTagFoto = idTagFoto;
+    public void setIdTagUsuario(Integer idTagUsuario) {
+        this.idTagUsuario = idTagUsuario;
     }
 
     public Tag getIdTag() {
@@ -66,29 +66,29 @@ public class TagFoto implements Serializable {
         this.idTag = idTag;
     }
 
-    public Foto getIdFoto() {
-        return idFoto;
+    public Usuario getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setIdFoto(Foto idFoto) {
-        this.idFoto = idFoto;
+    public void setIdUsuario(Usuario idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idTagFoto != null ? idTagFoto.hashCode() : 0);
+        hash += (idTagUsuario != null ? idTagUsuario.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TagFoto)) {
+        if (!(object instanceof TagUsuario)) {
             return false;
         }
-        TagFoto other = (TagFoto) object;
-        if ((this.idTagFoto == null && other.idTagFoto != null) || (this.idTagFoto != null && !this.idTagFoto.equals(other.idTagFoto))) {
+        TagUsuario other = (TagUsuario) object;
+        if ((this.idTagUsuario == null && other.idTagUsuario != null) || (this.idTagUsuario != null && !this.idTagUsuario.equals(other.idTagUsuario))) {
             return false;
         }
         return true;
@@ -96,7 +96,7 @@ public class TagFoto implements Serializable {
 
     @Override
     public String toString() {
-        return "entiti.TagFoto[ idTagFoto=" + idTagFoto + " ]";
+        return "entiti.TagUsuario[ idTagUsuario=" + idTagUsuario + " ]";
     }
     
 }

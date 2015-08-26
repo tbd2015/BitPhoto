@@ -94,12 +94,8 @@ public class Usuario implements Serializable {
     @Size(max = 144)
     @Column(name = "DESCRIPCION")
     private String descripcion;
-        
-    @JoinTable(name = "TAG_USUARIO", joinColumns = {
-        @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")}, inverseJoinColumns = {
-        @JoinColumn(name = "ID_TAG", referencedColumnName = "ID_TAG")})
-    @ManyToMany
-    private Collection<Tag> tagCollection;
+    @OneToMany(mappedBy = "idUsuario")
+    private Collection<TagUsuario> tagUsuarioCollection;
     @OneToMany(mappedBy = "idUsuario")
     private Collection<Album> albumCollection;
     @OneToMany(mappedBy = "idUsuario")
@@ -269,12 +265,12 @@ public class Usuario implements Serializable {
     }
     
     @XmlTransient
-    public Collection<Tag> getTagCollection() {
-        return tagCollection;
+    public Collection<TagUsuario> getTagUsuarioCollection() {
+        return tagUsuarioCollection;
     }
 
-    public void setTagCollection(Collection<Tag> tagCollection) {
-        this.tagCollection = tagCollection;
+    public void setTagUsuarioCollection(Collection<TagUsuario> tagUsuarioCollection) {
+        this.tagUsuarioCollection = tagUsuarioCollection;
     }
 
     @XmlTransient

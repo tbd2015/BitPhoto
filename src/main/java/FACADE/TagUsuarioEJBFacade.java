@@ -6,15 +6,16 @@ package FACADE;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import MODEL.TagFotoPK;
+import MODEL.TagUsuario;
 
-public class TagFotoPKEJBFacade extends AbstractFacade<TagFotoPK> {
+@Stateless
+public class TagUsuarioEJBFacade extends AbstractFacade<TagUsuario> {
         
         @PersistenceContext(unitName = "bitphoto")
 	private EntityManager em;
 	
-	public TagFotoPKEJBFacade() {
-		super(TagFotoPK.class);
+	public TagUsuarioEJBFacade() {
+		super(TagUsuario.class);
 	}
 
 	@Override
