@@ -47,7 +47,7 @@ public class PhotosOfService {
             List<Usuario> UsuariosFollows = UsuarioUsuarioEJB.getUsersFollow(u);
             if (u != null) {  
               if(!UsuariosFollows.isEmpty()){
-                  String JsonList = ListToJsonPhotosFrom(u, Integer.parseInt(cantidad), UsuariosFollows);
+                  String JsonList = ListToJsonPhotosOf(u, Integer.parseInt(cantidad), UsuariosFollows);
                   return JsonList;
               }else{ // no sigue usuarios
                return "{ \"success\": false, \"message\": \"El usuario no sigue a otros usuarios\"}";   
@@ -58,7 +58,7 @@ public class PhotosOfService {
         }
               
 
-    private String ListToJsonPhotosFrom(Usuario u, int cant, List<Usuario> UsuariosFollows) {
+    private String ListToJsonPhotosOf(Usuario u, int cant, List<Usuario> UsuariosFollows) {
             String success = "{ \"success\": true";
             String menssage = ", \"message\": \"Usuario encontrado y sigue a otros usuarios\"";
 

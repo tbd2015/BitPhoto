@@ -41,12 +41,14 @@ public class RegisterService{
                     u.setAlias(user.getAlias());
                     u.setCorreo(user.getCorreo());
                     u.setContrasena(user.getContrasena());
+                    u.setUrlAvatar("/resources/photos/default/avatar/foto.jpeg");
+                    u.setUrlPerfil("/resources/photos/default/perfil/foto.jpeg");
                     //DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                    
                     u.setDescripcion("Nuevo usuario BitPhoto");
                     
                     
-                   UsuarioEJB.addUser(u);
+                    UsuarioEJB.addUser(u);
 
                    return "{ \"success\": true, \"message\": \"Registro de usuario exitoso\" , \"usuario\" : \""+u.getCorreo()+"\"}";
                      

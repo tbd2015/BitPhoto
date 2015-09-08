@@ -23,7 +23,7 @@ public class UsuarioEJB implements UsuarioEJBLocal{
     FotoEJBFacade FotoFacade;
     
     public UsuarioEJB() {
-       
+     
     }
    
     @Override
