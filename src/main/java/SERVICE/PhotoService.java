@@ -68,7 +68,7 @@ public class PhotoService {
         @GET
         @Produces({"application/json"})
         @Path("{correo}/favoritos")
-        public String getphotosrecientes(@PathParam("correo") String correo){
+        public String getphotosfavrecientes(@PathParam("correo") String correo){
             Usuario u = UsuarioEJB.findUserByEmail(correo);
             List<Foto> fotos = FavoritosFotoEJB.getPhotosFavouriteFromUser(u);
             List<FavoritosFoto> fav = FavoritosFotoEJB.getFavouritePhotoFromUser(u);
@@ -92,7 +92,7 @@ public class PhotoService {
         public String createFavouritePhoto(FavoritosFoto ff){
             try {
                 FavoritosFoto fv = new FavoritosFoto();
-                fv.setIdUsuario(UsuarioEJB.findUserByAlias(ff.getIdUsuario().getAlias()));
+                fv.setIdUsuario(UsuarioEJB.findUserByEmail(ff.getIdUsuario().getCorreo()));
                 int IdPhoto = ff.getIdFoto().getIdFoto();
                 fv.setIdFoto(FotoEJB.getPhoto(IdPhoto));
                 FavoritosFotoEJB.addFavourite(fv);
