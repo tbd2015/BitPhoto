@@ -170,7 +170,7 @@ public class PhotoService {
         public String createCommentPhoto(ComentarioFoto cf){
             try {
                 ComentarioFoto cphoto = new ComentarioFoto();
-                cphoto.setIdUsuario(UsuarioEJB.findUserByAlias(cf.getIdUsuario().getAlias()));
+                cphoto.setIdUsuario(UsuarioEJB.findUserByAlias(cf.getIdUsuario().getCorreo()));
                 int IdPhoto = cf.getIdFoto().getIdFoto();
                 cphoto.setIdFoto(FotoEJB.getPhoto(IdPhoto));
                 cphoto.setComentarioFoto(cf.getComentarioFoto());
