@@ -17,7 +17,7 @@ public class ComentarioFotoJsonFormat {
                     .add("comentario", cf.getComentarioFoto())
                     .add("IdUsuario", cf.getIdUsuario().getIdUsuario())
                     .add("fecha_creacion", (String) (cf.getFechaComentarioFoto() == null ? "": cf.getFechaComentarioFoto().toString()))
-                    .add("IdClasificacion",(String) (cf.getIdClasificacion() == null ? "": cf.getIdClasificacion().getIdClasificacion()))
+                    .add("IdClasificacion", cf.getIdClasificacion() == null ? 0: cf.getIdClasificacion().getIdClasificacion())
                     .add("IdFoto", cf.getIdFoto().getIdFoto());
             JsonObject comentarioFotoJsonObject = ComentarioFotoBuilder.build();
             return comentarioFotoJsonObject;
