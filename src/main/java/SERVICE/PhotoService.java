@@ -89,14 +89,14 @@ public class PhotoService {
         @Produces({"application/json"})
         @Path("{correo}/favoritofoto")
         @Consumes(MediaType.APPLICATION_JSON)
-        public String createFavouritePhoto(FavoritosFoto ff){
+        public String createFavouritePhoto(@PathParam("correo") String correo ,Foto f){
             try {
                 FavoritosFoto fv = new FavoritosFoto();
-                fv.setIdUsuario(UsuarioEJB.findUserByEmail(ff.getIdUsuario().getCorreo()));
-                int IdPhoto = ff.getIdFoto().getIdFoto();
+                fv.setIdUsuario(UsuarioEJB.findUserByEmail(correo));
+                int IdPhoto = f.getIdFoto();
                 fv.setIdFoto(FotoEJB.getPhoto(IdPhoto));
                 FavoritosFotoEJB.addFavourite(fv);
-                return "{ \"success\": true, \"message\": \"Operacion de favorito foto exitosa\" , \"usuario\" : \""+UsuarioEJB.findUserByEmail(ff.getIdUsuario().getCorreo())+"\"}";
+                return "{ \"success\": true, \"message\": \"Operacion de favorito foto exitosa\" , \"usuario\" : \""+UsuarioEJB.findUserByEmail(correo)+"\"}";
             }catch(Exception e){
                 return "{ \"success\": false, \"message\": \"Hay problemas en el sistema\", \"trackerror\": \""+e.getMessage()+"\" }";
             }
