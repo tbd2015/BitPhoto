@@ -96,7 +96,7 @@ public class PhotoService {
                 int IdPhoto = ff.getIdFoto().getIdFoto();
                 fv.setIdFoto(FotoEJB.getPhoto(IdPhoto));
                 FavoritosFotoEJB.addFavourite(fv);
-                return "{ \"success\": true, \"message\": \"Operacion de favorito foto exitosa\" , \"usuario\" : \""+UsuarioEJB.findUserByAlias(ff.getIdUsuario().getAlias()).getCorreo()+"\"}";
+                return "{ \"success\": true, \"message\": \"Operacion de favorito foto exitosa\" , \"usuario\" : \""+UsuarioEJB.findUserByEmail(ff.getIdUsuario().getCorreo())+"\"}";
             }catch(Exception e){
                 return "{ \"success\": false, \"message\": \"Hay problemas en el sistema\", \"trackerror\": \""+e.getMessage()+"\" }";
             }
