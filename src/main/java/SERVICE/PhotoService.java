@@ -165,17 +165,16 @@ public class PhotoService {
         
         @POST
         @Produces({"application/json"})
-        @Path("{correo}/comentarioPhoto")
+        @Path("{correo}/comentarioPhoto/{idphoto}")
         @Consumes(MediaType.APPLICATION_JSON)
-        public String createCommentPhoto(ComentarioFoto cf){
+        public String createCommentPhoto(@PathParam("correo") String correo, @PathParam("idphoto") Integer idphoto, ComentarioFoto cf){
             try {
                 ComentarioFoto cphoto = new ComentarioFoto();
-                cphoto.setIdUsuario(UsuarioEJB.findUserByAlias(cf.getIdUsuario().getCorreo()));
-                int IdPhoto = cf.getIdFoto().getIdFoto();
-                cphoto.setIdFoto(FotoEJB.getPhoto(IdPhoto));
+                cphoto.setIdUsuario(UsuarioEJB.findUserByAlias(correo));
+                cphoto.setIdFoto(FotoEJB.getPhoto(idphoto));
                 cphoto.setComentarioFoto(cf.getComentarioFoto());
                 ComentarioFotoEJB.addCommentPhoto(cphoto);
-                return "{ \"success\": true, \"message\": \"Operacion de comentar foto exitosa\" , \"usuario\" : \""+UsuarioEJB.findUserByAlias(cf.getIdUsuario().getAlias()).getCorreo()+"\"}";
+                return "{ \"success\": true, \"message\": \"Operacion de comentar foto exitosa\" , \"usuario\" : \""+UsuarioEJB.findUserByEmail(correo)+"\"}";
             }catch(Exception e){
                 return "{ \"success\": false, \"message\": \"Hay problemas en el sistema\", \"trackerror\": \""+e.getMessage()+"\" }";
             }
