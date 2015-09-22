@@ -170,7 +170,7 @@ public class PhotoService {
         public String createCommentPhoto(@PathParam("correo") String correo, @PathParam("idphoto") Integer idphoto, ComentarioFoto cf){
             try {
                 ComentarioFoto cphoto = new ComentarioFoto();
-                cphoto.setIdUsuario(UsuarioEJB.findUserByAlias(correo));
+                cphoto.setIdUsuario(UsuarioEJB.findUserByEmail(correo));
                 cphoto.setIdFoto(FotoEJB.getPhoto(idphoto));
                 cphoto.setComentarioFoto(cf.getComentarioFoto());
                 ComentarioFotoEJB.addCommentPhoto(cphoto);
