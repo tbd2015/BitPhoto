@@ -1,6 +1,7 @@
 package SERVICE;
 
 //import java.util.List;
+import EJB.local.ClasificacionEJBLocal;
 import EJB.local.ComentarioFotoEJBLocal;
 import EJB.local.FavoritosFotoEJBLocal;
 import EJB.local.FotoEJBLocal;
@@ -15,6 +16,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import EJB.local.UsuarioEJBLocal;
+import MODEL.Clasificacion;
 import MODEL.ComentarioFoto;
 import MODEL.Etiqueta;
 import MODEL.FavoritosFoto;
@@ -45,6 +47,8 @@ public class PhotoService {
     FavoritosFotoEJBLocal FavoritosFotoEJB;
     @EJB
     ComentarioFotoEJBLocal  ComentarioFotoEJB;
+    @EJB
+    ClasificacionEJBLocal ClasificacionEJB;
     
         @GET
         @Produces({"application/json"})
@@ -173,6 +177,7 @@ public class PhotoService {
                 cphoto.setIdUsuario(UsuarioEJB.findUserByEmail(correo));
                 cphoto.setIdFoto(FotoEJB.getPhoto(idphoto));
                 cphoto.setComentarioFoto(cf.getComentarioFoto());
+                cphoto.setIdClasificacion(ClasificacionEJB.getClasificacion(correo));
                 ComentarioFotoEJB.addCommentPhoto(cphoto);
                 return "{ \"success\": true, \"message\": \"Operacion de comentar foto exitosa\" , \"usuario\" : \""+UsuarioEJB.findUserByEmail(correo)+"\"}";
             }catch(Exception e){

@@ -57,4 +57,9 @@ public class ClasificacionEJB implements ClasificacionEJBLocal{
            }
            return countClassification;
     }  
+
+    @Override
+    public Clasificacion getClasificacion(String nombre) {
+           return clasificacionEJB.findAll().get(0);
+    }
 }

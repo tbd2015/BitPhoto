@@ -97,5 +97,10 @@ public class TagEJB implements TagEJBLocal{
         tu.setIdUsuario(u);
         TagUsuarioEJB.create(tu);
     }
+
+    @Override
+    public List<Tag> getAllTag() {
+        return TagEJB.findAll();
+    }
     
 }

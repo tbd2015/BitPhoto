@@ -15,4 +15,5 @@ public interface TagEJBLocal {
     void addTagUsuario(Tag t, Usuario u);
     void deleteTagPhoto(Tag t, Foto f);
     Tag getTag(String nombre);
+    List<Tag> getAllTag();
 }
