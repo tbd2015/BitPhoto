@@ -171,11 +171,11 @@ public class PhotoService {
         @Produces({"application/json"})
         @Path("{correo}/comentarioPhoto/{idphoto}")
         @Consumes(MediaType.APPLICATION_JSON)
-        public String createCommentPhoto(@PathParam("correo") String correo, @PathParam("idphoto") Integer idphoto, ComentarioFoto cf){
+        public String createCommentPhoto(@PathParam("correo") String correo, @PathParam("idphoto") String idphoto, ComentarioFoto cf){
             try {
                 ComentarioFoto cphoto = new ComentarioFoto();
                 cphoto.setIdUsuario(UsuarioEJB.findUserByEmail(correo));
-                cphoto.setIdFoto(FotoEJB.getPhoto(idphoto));
+                cphoto.setIdFoto(FotoEJB.getPhoto(Integer.parseInt(idphoto)));
                 cphoto.setComentarioFoto(cf.getComentarioFoto());
                 cphoto.setIdClasificacion(ClasificacionEJB.getClasificacion(correo));
                 ComentarioFotoEJB.addCommentPhoto(cphoto);
