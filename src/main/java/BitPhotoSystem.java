@@ -7,6 +7,10 @@ import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
+import EJB.local.*;
+import FACADE.FotoEJBFacade;
+import MODEL.Foto;
+import javax.ejb.EJB;
 
 /**
  *
@@ -14,13 +18,10 @@ import javax.json.JsonReader;
 */
 
 public class BitPhotoSystem {
-            
-    public static void main(String[] args) throws MalformedURLException, IOException {
+           
+        public static void main(String[] args) throws MalformedURLException, IOException {
         
-       
-      
         
-        System.out.println("\nHola Mundo");
         
     }
     

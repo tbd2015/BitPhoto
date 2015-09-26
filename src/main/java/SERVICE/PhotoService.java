@@ -297,22 +297,23 @@ public class PhotoService {
         @Produces({"application/json"})
         @Path("upload/{email}")
         @Consumes(MediaType.APPLICATION_JSON)
-        public String UploadService(@PathParam("email") String email, Foto []fotos){
+        public String UploadService(@PathParam("email") String email, List<Foto> fotos){
             try {
                 Usuario u = UsuarioEJB.findUserByEmail(email);
-                for(Foto f : fotos){
+                
+                for(int i=0; i<fotos.size(); i++){ 
                     Foto foto = new Foto();
                     foto.setIdUsuario(u);
                     foto.setCantCom(0);
                     foto.setCantFavor(0);
-                    foto.setDescripcion(f.getDescripcion());
+                    foto.setDescripcion(fotos.get(i).getDescripcion());
                     foto.setFechaCarga(null);
-                    foto.setFechaTomada(f.getFechaTomada());
-                    foto.setFormato(f.getFormato());
-                    foto.setIdCamara(null);
-                    foto.setPuntoLugar(f.getPuntoLugar());
-                    foto.setTitulo(f.getTitulo());
-                    foto.setUrl(f.getUrl());
+                    foto.setFechaTomada(fotos.get(i).getFechaTomada());
+                    foto.setFormato(fotos.get(i).getFormato());
+                    foto.setIdCamara(CamaraEJB.getCamera(564));
+                    foto.setPuntoLugar(null);
+                    foto.setTitulo(fotos.get(i).getTitulo());
+                    foto.setUrl(fotos.get(i).getUrl());
                     foto.setVistas(0);
                     FotoEJB.addPhoto(foto);
                 }
@@ -321,7 +322,7 @@ public class PhotoService {
                 return "{ \"success\": false, \"message\": \"Hay problemas en el sistema\", \"trackerror\": \""+ex.getMessage()+"\" }";
             }
         }
-        
+                
         @DELETE
         @Produces({"application/json"})
         @Path("{correo}/delphoto")

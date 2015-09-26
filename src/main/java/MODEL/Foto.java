@@ -49,7 +49,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Foto.findByTitulo", query = "SELECT f FROM Foto f WHERE f.titulo = :titulo"),
     @NamedQuery(name = "Foto.findByDescripcion", query = "SELECT f FROM Foto f WHERE f.descripcion = :descripcion"),
     @NamedQuery(name = "Foto.findByCantFavor", query = "SELECT f FROM Foto f WHERE f.cantFavor = :cantFavor"),
-    @NamedQuery(name = "Foto.findByUrl", query = "SELECT f FROM Foto f WHERE f.urlServer = :urlServer"),
+    @NamedQuery(name = "Foto.findByUrl", query = "SELECT f FROM Foto f WHERE f.url = :url"),
     @NamedQuery(name = "Foto.findByFormato", query = "SELECT f FROM Foto f WHERE f.formato = :formato"),
     @NamedQuery(name = "Foto.findByCantCom", query = "SELECT f FROM Foto f WHERE f.cantCom = :cantCom")})
 public class Foto implements Serializable {
@@ -77,7 +77,7 @@ public class Foto implements Serializable {
     private Integer cantFavor;
     @Size(max = 256)
     @Column(name = "URL")
-    private String urlServer;
+    private String url;
     @Size(max = 20)
     @Column(name = "FORMATO")
     private String formato;
@@ -94,7 +94,7 @@ public class Foto implements Serializable {
     private Collection<Permiso> permisoCollection;
     @JoinColumn(name = "ID_CAMARA", referencedColumnName = "ID_CAMARA")
     @ManyToOne
-    private Camara idCamara;
+    private Camara idCamara = null;
     @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
     @ManyToOne
     private Usuario idUsuario;
@@ -110,6 +110,19 @@ public class Foto implements Serializable {
     private Collection<Etiqueta> etiquetaCollection;
     
     public Foto() {
+    this.idFoto = null;
+    this.fechaCarga = null;
+    this.fechaTomada = null;
+    this.vistas = 0;
+    this.titulo = "";
+    this.descripcion = "Describe tu fotografia";
+    this.cantFavor = 0;
+    this.cantCom = 0;
+    this.url = null;
+    this.formato = "";
+    this.puntoLugar = null;
+    this.idCamara = null;
+    this.idUsuario = null;
     }
 
     public Foto(Integer idFoto) {
@@ -181,11 +194,11 @@ public class Foto implements Serializable {
     }
 
     public String getUrl() {
-        return urlServer;
+        return url;
     }
 
-    public void setUrl(String urlServer) {
-        this.urlServer = urlServer;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getFormato() {
