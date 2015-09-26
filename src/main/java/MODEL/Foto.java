@@ -77,7 +77,7 @@ public class Foto implements Serializable {
     private Integer cantFavor;
     @Size(max = 256)
     @Column(name = "URL")
-    private String url;
+    private String urlServer;
     @Size(max = 20)
     @Column(name = "FORMATO")
     private String formato;
@@ -181,11 +181,11 @@ public class Foto implements Serializable {
     }
 
     public String getUrl() {
-        return url;
+        return urlServer;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setUrl(String urlServer) {
+        this.urlServer = urlServer;
     }
 
     public String getFormato() {

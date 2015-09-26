@@ -1,6 +1,7 @@
 package SERVICE;
 
 //import java.util.List;
+import EJB.local.CamaraEJBLocal;
 import EJB.local.ClasificacionEJBLocal;
 import EJB.local.ComentarioFotoEJBLocal;
 import EJB.local.FavoritosFotoEJBLocal;
@@ -49,6 +50,8 @@ public class PhotoService {
     ComentarioFotoEJBLocal  ComentarioFotoEJB;
     @EJB
     ClasificacionEJBLocal ClasificacionEJB;
+    @EJB
+    CamaraEJBLocal CamaraEJB;
     
         @GET
         @Produces({"application/json"})
@@ -292,26 +295,28 @@ public class PhotoService {
        
         @POST
         @Produces({"application/json"})
-        @Path("{correo}/subir")
+        @Path("upload/{email}")
         @Consumes(MediaType.APPLICATION_JSON)
-        public String createPhoto(@PathParam("correo") String correo, Foto foto){
+        public String UploadService(@PathParam("email") String email, Foto []fotos){
             try {
-                Foto f = new Foto();
-                Usuario u = UsuarioEJB.findUserByEmail(correo);
-                f.setIdUsuario(u);
-                f.setCantCom(0);
-                f.setCantFavor(0);
-                f.setDescripcion(foto.getDescripcion());
-                f.setFechaCarga(null);
-                f.setFechaTomada(foto.getFechaTomada());
-                f.setFormato(foto.getFormato());
-                f.setIdCamara(foto.getIdCamara());
-                f.setPuntoLugar(foto.getPuntoLugar());
-                f.setTitulo(foto.getTitulo());
-                f.setUrl(foto.getUrl());
-                f.setVistas(0);
-                FotoEJB.addPhoto(f);
-                return "{ \"success\": true, \"message\": \"Operacion de favorito foto exitosa\" }";
+                Usuario u = UsuarioEJB.findUserByEmail(email);
+                for(Foto f : fotos){
+                    Foto foto = new Foto();
+                    f.setIdUsuario(u);
+                    f.setCantCom(0);
+                    f.setCantFavor(0);
+                    f.setDescripcion(f.getDescripcion());
+                    f.setFechaCarga(null);
+                    f.setFechaTomada(f.getFechaTomada());
+                    f.setFormato(f.getFormato());
+                    f.setIdCamara(null);
+                    f.setPuntoLugar(f.getPuntoLugar());
+                    f.setTitulo(f.getTitulo());
+                    f.setUrl(f.getUrl());
+                    f.setVistas(0);
+                    FotoEJB.addPhoto(f);
+                }
+                return "{ \"success\": true, \"message\": \"Fotos agregadas exitosamente\" }";
             }catch(Exception ex){
                 return "{ \"success\": false, \"message\": \"Hay problemas en el sistema\", \"trackerror\": \""+ex.getMessage()+"\" }";
             }
