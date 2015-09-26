@@ -49,7 +49,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Foto.findByTitulo", query = "SELECT f FROM Foto f WHERE f.titulo = :titulo"),
     @NamedQuery(name = "Foto.findByDescripcion", query = "SELECT f FROM Foto f WHERE f.descripcion = :descripcion"),
     @NamedQuery(name = "Foto.findByCantFavor", query = "SELECT f FROM Foto f WHERE f.cantFavor = :cantFavor"),
-    @NamedQuery(name = "Foto.findByUrl", query = "SELECT f FROM Foto f WHERE f.url = :url"),
+    @NamedQuery(name = "Foto.findByUrl", query = "SELECT f FROM Foto f WHERE f.urlServer = :urlServer"),
     @NamedQuery(name = "Foto.findByFormato", query = "SELECT f FROM Foto f WHERE f.formato = :formato"),
     @NamedQuery(name = "Foto.findByCantCom", query = "SELECT f FROM Foto f WHERE f.cantCom = :cantCom")})
 public class Foto implements Serializable {
