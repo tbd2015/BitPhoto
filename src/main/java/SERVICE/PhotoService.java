@@ -302,19 +302,19 @@ public class PhotoService {
                 Usuario u = UsuarioEJB.findUserByEmail(email);
                 for(Foto f : fotos){
                     Foto foto = new Foto();
-                    f.setIdUsuario(u);
-                    f.setCantCom(0);
-                    f.setCantFavor(0);
-                    f.setDescripcion(f.getDescripcion());
-                    f.setFechaCarga(null);
-                    f.setFechaTomada(f.getFechaTomada());
-                    f.setFormato(f.getFormato());
-                    f.setIdCamara(null);
-                    f.setPuntoLugar(f.getPuntoLugar());
-                    f.setTitulo(f.getTitulo());
-                    f.setUrl(f.getUrl());
-                    f.setVistas(0);
-                    FotoEJB.addPhoto(f);
+                    foto.setIdUsuario(u);
+                    foto.setCantCom(0);
+                    foto.setCantFavor(0);
+                    foto.setDescripcion(f.getDescripcion());
+                    foto.setFechaCarga(null);
+                    foto.setFechaTomada(f.getFechaTomada());
+                    foto.setFormato(f.getFormato());
+                    foto.setIdCamara(null);
+                    foto.setPuntoLugar(f.getPuntoLugar());
+                    foto.setTitulo(f.getTitulo());
+                    foto.setUrl(f.getUrl());
+                    foto.setVistas(0);
+                    FotoEJB.addPhoto(foto);
                 }
                 return "{ \"success\": true, \"message\": \"Fotos agregadas exitosamente\" }";
             }catch(Exception ex){
