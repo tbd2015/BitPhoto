@@ -11,6 +11,7 @@ import EJB.local.*;
 import FACADE.FotoEJBFacade;
 import MODEL.Foto;
 import javax.ejb.EJB;
+import org.apache.lucene.queryparser.classic.ParseException;
 
 /**
  *
@@ -19,7 +20,7 @@ import javax.ejb.EJB;
 
 public class BitPhotoSystem {
            
-        public static void main(String[] args) throws MalformedURLException, IOException {
+        public static void main(String[] args) throws MalformedURLException, IOException, ParseException {
         
         
         
