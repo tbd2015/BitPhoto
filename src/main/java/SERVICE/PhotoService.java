@@ -305,7 +305,8 @@ public class PhotoService {
                     foto.setIdUsuario(u);
                     foto.setCantCom(0);
                     foto.setCantFavor(0);
-                    foto.setDescripcion(fotos.get(i).getDescripcion());
+                    foto.setDescripcion("Nueva foto Bitphoto");
+                    //foto.setDescripcion(fotos.get(i).getDescripcion());
                     foto.setFechaCarga(null);
                     foto.setFechaTomada(fotos.get(i).getFechaTomada());
                     foto.setFormato(fotos.get(i).getFormato());
@@ -313,6 +314,7 @@ public class PhotoService {
                     foto.setPuntoLugar(null);
                     foto.setTitulo(fotos.get(i).getTitulo());
                     foto.setUrl(fotos.get(i).getUrl());
+                    //foto.setUrl("");
                     foto.setVistas(0);
                     FotoEJB.addPhoto(foto);
                 }
