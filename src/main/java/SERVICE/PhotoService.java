@@ -299,8 +299,7 @@ public class PhotoService {
         @Consumes(MediaType.APPLICATION_JSON)
         public String UploadService(@PathParam("email") String email, List<Foto> fotos){
             try {
-                Usuario u = UsuarioEJB.findUserByEmail(email);
-                
+                Usuario u = UsuarioEJB.findUserByEmail(email);               
                 for(int i=0; i<fotos.size(); i++){ 
                     Foto foto = new Foto();
                     foto.setIdUsuario(u);
