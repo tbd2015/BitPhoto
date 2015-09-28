@@ -18,6 +18,12 @@ public class ComentarioFotoEJBFacade extends AbstractFacade<ComentarioFoto> {
 	public ComentarioFotoEJBFacade() {
 		super(ComentarioFoto.class);
 	}
+        
+        @TransactionAttribute
+        public int insertTrade(ComentarioFoto cf) throws Exception {
+        em.persist(cf);
+        return cf.getIdComentarioFoto();
+        }
 
 	@Override
 	protected EntityManager getEntityManager() {

@@ -7,7 +7,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import MODEL.Foto;
-import javax.ejb.Singleton;
+import javax.ejb.*;
 
 @Stateless
 public class FotoEJBFacade extends AbstractFacade<Foto> {
@@ -18,8 +18,8 @@ public class FotoEJBFacade extends AbstractFacade<Foto> {
 	public FotoEJBFacade() {
 		super(Foto.class);
 	}
-
-	@Override
+        
+        @Override
 	protected EntityManager getEntityManager() {
 		return em;
 	} 

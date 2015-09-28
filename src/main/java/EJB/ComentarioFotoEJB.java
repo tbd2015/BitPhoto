@@ -15,6 +15,8 @@ import MODEL.Usuario;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.*;
 
 @Stateless
@@ -75,6 +77,7 @@ public class ComentarioFotoEJB implements ComentarioFotoEJBLocal{
 
     @Override
     public void addCommentPhoto(ComentarioFoto comment) {
+       
         this.comentarioFotoEJB.create(comment);
     }
 

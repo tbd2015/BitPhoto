@@ -253,7 +253,7 @@ public class PhotoService {
            if(i!= fotos.size()-1){
             photos[i] =  "{ \"idfoto\": \""+fotos.get(i).getIdFoto()+"\", \"titulo\": \""+fotos.get(i).getTitulo()+"\", \"descripcion\": \""+fotos.get(i).getDescripcion()+"\", \"formato\": \""+fotos.get(i).getFormato()+"\", \"urlserver\": \""+fotos.get(i).getUrl()+"\", \"idCamara\": \""+fotos.get(i).getIdCamara()+"\", \"fecha_carga\": \""+fotos.get(i).getFechaCarga().toString()+"\", \"fecha_toma\": \""+fotos.get(i).getFechaTomada()+"\", \"views\": "+fotos.get(i).getVistas()+", \"favoritos\": "+fotos.get(i).getCantFavor()+", \"comentarios\": "+fotos.get(i).getCantCom()+",\"owner\": \""+UsuarioEJB.getUser(fotos.get(i).getIdUsuario().getIdUsuario()).getAlias()+"\" } ,\n";
            }else{
-            photos[i] =  "{ \"idfoto\": \""+fotos.get(i).getIdFoto()+"\", \"titulo\": \""+fotos.get(i).getTitulo()+"\", \"descripcion\": \""+fotos.get(i).getDescripcion()+"\", \"formato\": \""+fotos.get(i).getFormato()+"\", \"urlserver\": \""+fotos.get(i).getUrl()+"\", \"idCamara\": \""+fotos.get(i).getIdCamara()+"\", \"fecha_carga\": \""+fotos.get(i).getFechaCarga().toString()+"\", \"fecha_toma\": \""+fotos.get(i).getFechaTomada()+"\", \"views\": "+fotos.get(i).getVistas()+", \"favoritos\": "+fotos.get(i).getCantFavor()+", \"comentarios\": "+fotos.get(i).getCantCom()+",\"owner\": \""+UsuarioEJB.getUser(fotos.get(i).getIdUsuario().getIdUsuario()).getAlias()+"\" }";
+            photos[i] =  "{ \"idfoto\": \""+fotos.get(i).getIdFoto()+"\", \"titulo\": \""+fotos.get(i).getTitulo()+"\", \"descripcion\": \""+fotos.get(i).getDescripcion()+"\", \"formato\": \""+fotos.get(i).getFormato()+"\", \"urlserver\": \""+fotos.get(i).getUrl()+"\", \"idCamara\": \""+fotos.get(i).getIdCamara()+"\", \"fecha_carga\": \""+fotos.get(i).getFechaTomada().toString()+"\", \"fecha_toma\": \""+fotos.get(i).getFechaTomada()+"\", \"views\": "+fotos.get(i).getVistas()+", \"favoritos\": "+fotos.get(i).getCantFavor()+", \"comentarios\": "+fotos.get(i).getCantCom()+",\"owner\": \""+UsuarioEJB.getUser(fotos.get(i).getIdUsuario().getIdUsuario()).getAlias()+"\" }";
            }
                salida = salida.concat(photos[i]);
         }
@@ -307,7 +307,7 @@ public class PhotoService {
                     foto.setCantFavor(0);
                     foto.setDescripcion("Nueva foto Bitphoto");
                     //foto.setDescripcion(fotos.get(i).getDescripcion());
-                    foto.setFechaCarga(null);
+                    foto.setFechaCarga(fotos.get(i).getFechaTomada());
                     foto.setFechaTomada(fotos.get(i).getFechaTomada());
                     foto.setFormato(fotos.get(i).getFormato());
                     foto.setIdCamara(CamaraEJB.getCamera(564));

@@ -5,6 +5,7 @@ import EJB.local.FotoEJBLocal;
 import FACADE.AlbumFotoEJBFacade;
 import FACADE.FavoritosFotoEJBFacade;
 import FACADE.FotoEJBFacade;
+import FACADE.UsuarioEJBFacade;
 import MODEL.Etiqueta;
 
 import java.util.Collections;
@@ -25,10 +26,6 @@ public class FotoEJB implements FotoEJBLocal{
     
     @EJB
     FotoEJBFacade FotoFacade;
-    @EJB 
-    AlbumFotoEJBFacade AlbumFotoFacade;
-    @EJB
-    FavoritosFotoEJBFacade FavoritoFotoFacade;
 	
     public FotoEJB() {
        
@@ -66,13 +63,14 @@ public class FotoEJB implements FotoEJBLocal{
     
     @Override
     public List<Foto> getPhotosByUser(Usuario user) {   
-        Collection<Foto> collectionUsers =  user.getFotoCollection();
+        Collection<Foto> collection = user.getFotoCollection();
         List<Foto> photosUser = new ArrayList<>();
-        for (Foto f : collectionUsers) {
+        
+        for(Foto f: this.FotoFacade.findAll()){
             if(f.getIdUsuario().equals(user)){
-               photosUser.add(f);
-            }
-        }       
+                photosUser.add(f);
+            }    
+        }
         return photosUser;
     }
 
