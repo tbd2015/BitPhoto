@@ -26,7 +26,15 @@ public class FavoritosFotoEJB implements FavoritosFotoEJBLocal{
 
     @Override
     public void addFavourite(FavoritosFoto photoFavourites) {
-        this.FavoritosFotoFacade.create(photoFavourites);
+        boolean estado = false;
+        for(FavoritosFoto f: FavoritosFotoFacade.findAll()){
+           if (f.getIdFoto().equals(photoFavourites.getIdFoto()) && f.getIdUsuario().equals(photoFavourites.getIdUsuario())){
+           estado = true;
+           }
+        }
+        if(estado != true){
+           this.FavoritosFotoFacade.create(photoFavourites);
+        }
     }
 
     @Override

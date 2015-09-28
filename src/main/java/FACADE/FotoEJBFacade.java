@@ -7,6 +7,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import MODEL.Foto;
+import javax.ejb.Singleton;
 
 @Stateless
 public class FotoEJBFacade extends AbstractFacade<Foto> {

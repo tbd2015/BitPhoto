@@ -7,6 +7,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import MODEL.ComentarioFoto;
+import javax.ejb.*;
 
 @Stateless
 public class ComentarioFotoEJBFacade extends AbstractFacade<ComentarioFoto> {

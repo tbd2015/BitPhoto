@@ -3,6 +3,7 @@ package FACADE;
  *
  * @author elias
  */
+import javax.ejb.*;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

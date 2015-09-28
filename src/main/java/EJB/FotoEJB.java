@@ -69,7 +69,9 @@ public class FotoEJB implements FotoEJBLocal{
         Collection<Foto> collectionUsers =  user.getFotoCollection();
         List<Foto> photosUser = new ArrayList<>();
         for (Foto f : collectionUsers) {
-            photosUser.add(f);
+            if(f.getIdUsuario().equals(user)){
+               photosUser.add(f);
+            }
         }       
         return photosUser;
     }

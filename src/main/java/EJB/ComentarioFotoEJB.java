@@ -15,6 +15,7 @@ import MODEL.Usuario;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import javax.ejb.*;
 
 @Stateless
 public class ComentarioFotoEJB implements ComentarioFotoEJBLocal{
@@ -39,8 +40,11 @@ public class ComentarioFotoEJB implements ComentarioFotoEJBLocal{
     public List<ComentarioFoto> getCommentsByPhoto(Foto photo) {
         Collection<ComentarioFoto> CollectionPhotoComments = photo.getComentarioFotoCollection();
         List<ComentarioFoto> photoComments = new ArrayList<>();
-        for(ComentarioFoto cf: CollectionPhotoComments){
-            photoComments.add(cf);
+        
+        for(ComentarioFoto cf: comentarioFotoEJB.findAll()){
+            if(cf.getIdFoto().equals(photo)){
+              photoComments.add(cf);
+            }
         }
         return photoComments;
     }
@@ -61,8 +65,10 @@ public class ComentarioFotoEJB implements ComentarioFotoEJBLocal{
     public List<ComentarioFoto> getCommentsByUser(Usuario user) {
          Collection<ComentarioFoto>  CollectionPhotoComments = user.getComentarioFotoCollection();
          List<ComentarioFoto> photoComments = new ArrayList<>();
-         for(ComentarioFoto cf: CollectionPhotoComments){
-               photoComments.add(cf);
+         for(ComentarioFoto cf: comentarioFotoEJB.findAll()){
+             if(cf.getIdUsuario().equals(user)){
+             photoComments.add(cf);
+             }  
          }
          return photoComments;
     }
